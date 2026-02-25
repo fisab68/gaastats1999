@@ -36,6 +36,27 @@
   #meta-start { width:100%; padding:16px; background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(0,230,118,0.15)); border:1.5px solid var(--accent); border-radius:var(--radius-sm); color:var(--accent); font-family:'Inter',sans-serif; font-size:14px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s,transform 0.1s; }
   #meta-start:active { transform:scale(0.97); }
 
+  /* ── DIRECTION MODAL ─────────────────────────────────────────── */
+  #direction-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:600; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(10px); }
+  #direction-overlay.visible { display:flex; }
+  #direction-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 24px; max-width:400px; width:100%; display:flex; flex-direction:column; gap:18px; }
+  #direction-box h3 { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:3px; color:var(--amber); text-align:center; }
+  #direction-box p { font-size:12px; color:var(--text-dim); text-align:center; margin-top:-10px; line-height:1.6; }
+  .dir-pitch { position:relative; background:rgba(0,230,118,0.04); border:1.5px solid rgba(0,230,118,0.15); border-radius:12px; height:72px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin:0 0 4px; }
+  .dir-pitch-line { position:absolute; top:10%; bottom:10%; left:50%; width:1.5px; background:rgba(0,230,118,0.2); }
+  .dir-pitch-arc-l { position:absolute; left:-18px; top:50%; width:48px; height:48px; border:1.5px solid rgba(0,230,118,0.2); border-radius:50%; transform:translateY(-50%); }
+  .dir-pitch-arc-r { position:absolute; right:-18px; top:50%; width:48px; height:48px; border:1.5px solid rgba(0,230,118,0.2); border-radius:50%; transform:translateY(-50%); }
+  #dir-arrow { font-size:28px; position:relative; z-index:1; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+  .dir-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dir-btn { padding:18px 8px; border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:13px; font-weight:900; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:2px solid; text-align:center; line-height:1.4; transition:all 0.15s; }
+  .dir-btn:active { transform:scale(0.95); }
+  #dir-ltr { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.4); color:var(--green); }
+  #dir-rtl { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.4); color:var(--green); }
+  .dir-btn.selected { background:rgba(0,230,118,0.25); border-color:var(--green); box-shadow:0 0 16px rgba(0,230,118,0.3); }
+  #dir-confirm { width:100%; padding:15px; background:linear-gradient(135deg,rgba(255,171,64,0.2),rgba(255,171,64,0.1)); border:1.5px solid var(--amber); border-radius:var(--radius-sm); color:var(--amber); font-family:'Inter',sans-serif; font-size:14px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; opacity:0.4; pointer-events:none; }
+  #dir-confirm.ready { opacity:1; pointer-events:all; }
+  #dir-confirm:active { transform:scale(0.97); }
+
   /* ── MAIN APP ────────────────────────────────────────────────── */
   #app { display:grid; grid-template-rows:auto auto auto 1fr auto; height:100vh; padding:6px 8px 5px; gap:5px; }
 
@@ -43,8 +64,9 @@
   #match-banner { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:4px 12px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .banner-item { display:flex; flex-direction:column; align-items:center; gap:0; }
   .banner-lbl { font-size:8px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); }
-  .banner-val { font-size:12px; font-weight:700; color:var(--text); letter-spacing:0.3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
+  .banner-val { font-size:12px; font-weight:700; color:var(--text); letter-spacing:0.3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px; }
   .banner-val.accent { color:var(--accent); }
+  .banner-val.dir-val { color:var(--amber); font-size:11px; }
   #banner-edit { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:6px; border:1px solid rgba(107,122,153,0.3); background:rgba(107,122,153,0.08); color:var(--text-dim); cursor:pointer; flex-shrink:0; transition:border-color 0.15s,color 0.15s; }
   #banner-edit:active { border-color:var(--accent); color:var(--accent); }
 
@@ -100,7 +122,6 @@
   .kpi-btn.cat-blue   { background:linear-gradient(145deg,#0d1520,#0a1018); border-color:#1a2a40; }
   .kpi-btn.cat-grey   { background:linear-gradient(145deg,#141820,#0f1218); border-color:#252e40; }
 
-  /* Zone dividers */
   .kpi-btn:not(.blank)::before { content:''; position:absolute; top:8%; bottom:18%; left:33.33%; width:1px; pointer-events:none; z-index:1; }
   .cat-green::before  { background:rgba(0,230,118,0.12);  box-shadow:calc(33.33% + 0px) 0 0 rgba(0,230,118,0.12); }
   .cat-red::before    { background:rgba(255,61,90,0.12);  box-shadow:calc(33.33% + 0px) 0 0 rgba(255,61,90,0.12); }
@@ -110,7 +131,6 @@
   .cat-blue::before   { background:rgba(0,212,255,0.12);  box-shadow:calc(33.33% + 0px) 0 0 rgba(0,212,255,0.12); }
   .cat-grey::before   { background:rgba(138,155,181,0.12);box-shadow:calc(33.33% + 0px) 0 0 rgba(138,155,181,0.12); }
 
-  /* Zone overlays */
   .zone-overlay { position:absolute; top:0; bottom:0; opacity:0; pointer-events:none; transition:opacity 0.12s; z-index:0; }
   .zone-overlay.zl { left:0;      width:33.33%; border-radius:11px 0 0 11px; }
   .zone-overlay.zm { left:33.33%; width:33.34%; }
@@ -124,7 +144,6 @@
   .cat-blue   .zone-overlay { background:rgba(0,212,255,0.15); }
   .cat-grey   .zone-overlay { background:rgba(138,155,181,0.15); }
 
-  /* Zone label strip — sits at very bottom of button */
   .zone-labels { position:absolute; bottom:3px; left:0; right:0; display:flex; pointer-events:none; z-index:2; }
   .zone-lbl { flex:1; text-align:center; font-size:9px; font-weight:900; letter-spacing:0.5px; text-transform:uppercase; opacity:0.2; transition:opacity 0.12s; }
   .zone-lbl.active { opacity:0.9; }
@@ -136,7 +155,6 @@
   .cat-blue   .zone-lbl { color:#00d4ff; }
   .cat-grey   .zone-lbl { color:#8a9bb5; }
 
-  /* Location badge */
   .loc-badge { position:absolute; top:5px; right:6px; font-size:10px; font-weight:900; letter-spacing:0.5px; border-radius:4px; padding:1px 5px; opacity:0; z-index:4; pointer-events:none; transition:opacity 0.15s; }
   .loc-badge.show { opacity:1; }
   .cat-green  .loc-badge { background:rgba(0,230,118,0.25);  color:#00e676; }
@@ -157,11 +175,9 @@
   .cat-blue   .kpi-count { color:#00d4ff; }
   .cat-grey   .kpi-count { color:#8a9bb5; }
 
-  /* Flash */
   .kpi-btn::after { content:''; position:absolute; inset:0; background:var(--flash); opacity:0; border-radius:inherit; pointer-events:none; transition:opacity 0.05s; z-index:3; }
   .kpi-btn.flashing::after { opacity:0.3; }
 
-  /* Ripple */
   .ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,0.25); transform:scale(0); animation:rip 0.45s ease-out forwards; pointer-events:none; z-index:5; }
   @keyframes rip { 0%{transform:scale(0);opacity:1;} 100%{transform:scale(4);opacity:0;} }
 
@@ -241,6 +257,7 @@
 </head>
 <body>
 
+<!-- MORNING METADATA SCREEN -->
 <div id="meta-screen">
   <div id="meta-box">
     <h2>⬢ Match Setup</h2>
@@ -253,6 +270,25 @@
   </div>
 </div>
 
+<!-- KICK-OFF DIRECTION MODAL -->
+<div id="direction-overlay">
+  <div id="direction-box">
+    <h3>🧭 Our Direction — 1st Half</h3>
+    <p>Which way are we playing in the first half?<br>Tap to select, then confirm to start the clock.</p>
+    <div class="dir-pitch">
+      <div class="dir-pitch-arc-l"></div>
+      <div class="dir-pitch-line"></div>
+      <div class="dir-pitch-arc-r"></div>
+      <div id="dir-arrow">→</div>
+    </div>
+    <div class="dir-btns">
+      <button class="dir-btn" id="dir-ltr" onclick="selectDirection('Left to Right')">◄── Left to Right ──►</button>
+      <button class="dir-btn" id="dir-rtl" onclick="selectDirection('Right to Left')">◄── Right to Left ──►</button>
+    </div>
+    <button id="dir-confirm" onclick="confirmDirection()">🏁 Confirm &amp; Start Clock</button>
+  </div>
+</div>
+
 <div id="game-over-banner">⬛ Full Time ⬛</div>
 
 <div id="app">
@@ -260,7 +296,7 @@
     <div class="banner-item"><span class="banner-lbl">Opposition</span><span class="banner-val accent" id="bn-opposition">—</span></div>
     <div class="banner-item"><span class="banner-lbl">Competition</span><span class="banner-val" id="bn-competition">—</span></div>
     <div class="banner-item"><span class="banner-lbl">Venue</span><span class="banner-val" id="bn-venue">—</span></div>
-    <div class="banner-item"><span class="banner-lbl">Date</span><span class="banner-val" id="bn-date">—</span></div>
+    <div class="banner-item"><span class="banner-lbl">1st Half Dir</span><span class="banner-val dir-val" id="bn-direction">—</span></div>
     <button id="banner-edit" onclick="editMeta()">✎ Edit</button>
   </div>
 
@@ -297,7 +333,6 @@
     <div class="qtr-pill" data-q="4">Q4<span class="qtr-score" id="q4-score"></span></div>
   </div>
 
-  <!-- KPI GRID 5×5 — no qbar spans -->
   <div id="kpi-grid">
     <button class="kpi-btn cat-green"  data-kpi="Point – Play (Us)">  <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Point Play (Us)</span>  <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-yellow" data-kpi="Miss – Play (Us)">   <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Miss Play (Us)</span>   <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
@@ -403,7 +438,8 @@ const Q1_Q2=15*60,H_START=30*60,Q3_Q4=45*60;
 
 let eventLog=[],pendingAction=null,activeTouch=null;
 let state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null};
-let meta={opposition:'',competition:'',venue:'',date:''};
+let meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
+let pendingDirection=''; // holds selection before confirm
 
 function init(){
   const sl=localStorage.getItem(STORAGE_KEY),ss=localStorage.getItem(STATE_KEY),sm=localStorage.getItem(META_KEY);
@@ -430,6 +466,7 @@ function submitMeta(){
     competition:document.getElementById('meta-competition').value.trim()||'—',
     venue:      document.getElementById('meta-venue').value.trim()||'—',
     date:       document.getElementById('meta-date').value,
+    directionFirstHalf: meta.directionFirstHalf||'', // preserve if already set
   };
   localStorage.setItem(META_KEY,JSON.stringify(meta));
   document.getElementById('meta-screen').classList.remove('visible');
@@ -446,7 +483,37 @@ function refreshBanner(){
   document.getElementById('bn-opposition').textContent=meta.opposition||'—';
   document.getElementById('bn-competition').textContent=meta.competition||'—';
   document.getElementById('bn-venue').textContent=meta.venue||'—';
-  document.getElementById('bn-date').textContent=meta.date||'—';
+  const dir=meta.directionFirstHalf;
+  const dirEl=document.getElementById('bn-direction');
+  dirEl.textContent=dir?(dir==='Left to Right'?'L → R':'R → L'):'—';
+  dirEl.style.color=dir?'var(--amber)':'var(--text-dim)';
+}
+
+// ── DIRECTION MODAL ──────────────────────────────────────────────
+function showDirectionModal(){
+  pendingDirection='';
+  // reset UI
+  document.getElementById('dir-ltr').classList.remove('selected');
+  document.getElementById('dir-rtl').classList.remove('selected');
+  document.getElementById('dir-confirm').classList.remove('ready');
+  document.getElementById('dir-arrow').textContent='→';
+  document.getElementById('direction-overlay').classList.add('visible');
+}
+function selectDirection(val){
+  pendingDirection=val;
+  document.getElementById('dir-ltr').classList.toggle('selected',val==='Left to Right');
+  document.getElementById('dir-rtl').classList.toggle('selected',val==='Right to Left');
+  document.getElementById('dir-arrow').textContent=val==='Left to Right'?'→':'←';
+  document.getElementById('dir-confirm').classList.add('ready');
+}
+function confirmDirection(){
+  if(!pendingDirection)return;
+  meta.directionFirstHalf=pendingDirection;
+  localStorage.setItem(META_KEY,JSON.stringify(meta));
+  document.getElementById('direction-overlay').classList.remove('visible');
+  refreshBanner();
+  // now actually start the game
+  doStartGame();
 }
 
 // Zone detection
@@ -475,7 +542,7 @@ function fireEvent(btn,evt,zone){
   if(state.pausedAt!==null){showToast('Game is paused — tap ▶ Resume first');return;}
   if(state.gameFlow==='half_time'){showToast('Half Time — tap ▶ 2nd Half to continue');return;}
   if(state.gameFlow==='ended'){showToast('Game has ended');return;}
-  if(state.gameFlow==='pre')doStartGame();
+  if(state.gameFlow==='pre')doStartGameFlow();
   const kpi=btn.dataset.kpi,now=Date.now(),secs=getMatchSeconds(now),quarter=getQuarterFromSeconds(secs);
   const m=Math.floor(secs/60).toString().padStart(2,'0'),s=(secs%60).toString().padStart(2,'0');
   eventLog.push({kpi,ts:now,quarter,time:`Q${quarter} ${m}:${s}`,location:zone});
@@ -509,7 +576,14 @@ function getMatchSeconds(atMs){
 }
 function getQuarterFromSeconds(s){return s<Q1_Q2?1:s<H_START?2:s<Q3_Q4?3:4;}
 
-function advanceGameFlow(){({pre:doStartGame,first_half:doEndFirstHalf,half_time:doStartSecondHalf,second_half:confirmEndGame,ended:()=>showToast('Full Time — long-press ▶ for new game')})[state.gameFlow]?.();}
+// Game flow — Start Game now routes through direction modal
+function doStartGameFlow(){
+  // If direction already set (e.g. reloaded mid-match), skip modal
+  if(meta.directionFirstHalf){doStartGame();return;}
+  showDirectionModal();
+}
+
+function advanceGameFlow(){({pre:doStartGameFlow,first_half:doEndFirstHalf,half_time:doStartSecondHalf,second_half:confirmEndGame,ended:()=>showToast('Full Time — long-press ▶ for new game')})[state.gameFlow]?.();}
 function doStartGame(){Object.assign(state,{gameFlow:'first_half',firstHalfStart:Date.now(),firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});saveState();refreshAll();showToast('🏁 Kick off — 1st Half');}
 function doEndFirstHalf(){if(state.pausedAt){state.firstHalfPausedMs+=Date.now()-state.pausedAt;state.pausedAt=null;}state.gameFlow='half_time';state.firstHalfEnd=Date.now();saveState();refreshAll();showToast('⏸ Half Time');}
 function doStartSecondHalf(){Object.assign(state,{gameFlow:'second_half',secondHalfStart:Date.now(),secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});saveState();refreshAll();showToast('▶ 2nd Half');}
@@ -531,7 +605,7 @@ function setupFlowLongPress(){
 }
 function confirmNewGame(){showConfirm('⊕ New Game','Clear all match data and metadata?',doNewGame,false);}
 function doNewGame(){
-  eventLog=[];meta={opposition:'',competition:'',venue:'',date:''};
+  eventLog=[];meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
   state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null};
   localStorage.setItem(STORAGE_KEY,JSON.stringify(eventLog));localStorage.removeItem(META_KEY);saveState();
   document.getElementById('game-over-banner').classList.remove('visible');
@@ -676,6 +750,7 @@ function showDisplay(){
   if(meta.competition&&meta.competition!=='—')parts.push(meta.competition);
   if(meta.venue&&meta.venue!=='—')parts.push(meta.venue);
   if(meta.date)parts.push(meta.date);
+  if(meta.directionFirstHalf)parts.push(`1st Half: ${meta.directionFirstHalf}`);
   document.getElementById('modal-match-info').textContent=parts.join('  ·  ');
   document.getElementById('modal-overlay').classList.add('visible');
 }
@@ -689,6 +764,7 @@ function exportCSV(){
   lines.push(`Competition,${meta.competition||'—'}`);
   lines.push(`Venue,${meta.venue||'—'}`);
   lines.push(`Date,${meta.date||'—'}`);
+  lines.push(`Direction First Half,${meta.directionFirstHalf||'—'}`);
   lines.push('','Event Log','Event,Quarter,MatchTime,Location,Timestamp_ms');
   eventLog.forEach(e=>lines.push(`"${e.kpi}",${e.quarter},"${e.time}","${e.location||'Centre'}",${e.ts}`));
   lines.push('','KPI Summary','KPI,Qtr1,Qtr2,Qtr3,Qtr4,Total');
