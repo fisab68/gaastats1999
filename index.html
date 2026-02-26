@@ -50,12 +50,13 @@
   .dir-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .dir-btn { padding:18px 8px; border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:13px; font-weight:900; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:2px solid; text-align:center; line-height:1.4; transition:all 0.15s; }
   .dir-btn:active { transform:scale(0.95); }
-  #dir-ltr { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.4); color:var(--green); }
-  #dir-rtl { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.4); color:var(--green); }
+  #dir-ltr,#dir-rtl { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.4); color:var(--green); }
   .dir-btn.selected { background:rgba(0,230,118,0.25); border-color:var(--green); box-shadow:0 0 16px rgba(0,230,118,0.3); }
   #dir-confirm { width:100%; padding:15px; background:linear-gradient(135deg,rgba(255,171,64,0.2),rgba(255,171,64,0.1)); border:1.5px solid var(--amber); border-radius:var(--radius-sm); color:var(--amber); font-family:'Inter',sans-serif; font-size:14px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; opacity:0.4; pointer-events:none; }
   #dir-confirm.ready { opacity:1; pointer-events:all; }
   #dir-confirm:active { transform:scale(0.97); }
+  #dir-skip { width:100%; padding:10px; background:transparent; border:1px solid rgba(107,122,153,0.25); border-radius:var(--radius-sm); color:var(--text-dim); font-family:'Inter',sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; margin-top:-6px; }
+  #dir-skip:active { border-color:var(--text-dim); color:var(--text); }
 
   /* ── MAIN APP ────────────────────────────────────────────────── */
   #app { display:grid; grid-template-rows:auto auto auto 1fr auto; height:100vh; padding:6px 8px 5px; gap:5px; }
@@ -80,15 +81,17 @@
   .score-value.flash-score,.score-total.flash-score { color:var(--flash); }
   #match-info { display:flex; flex-direction:column; align-items:center; gap:1px; }
   #quarter-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); }
-  #clock-row { display:flex; align-items:center; gap:6px; }
-  #match-clock { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--text); letter-spacing:1px; transition:color 0.2s; }
+  #clock-row { display:flex; align-items:center; gap:4px; }
+  #match-clock { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--text); letter-spacing:1px; transition:color 0.2s; min-width:72px; text-align:center; }
   #match-clock.paused { color:var(--amber); }
   #game-status { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); }
-  .clock-adj { font-size:10px; font-weight:900; line-height:1; padding:4px 6px; border-radius:6px; border:1.5px solid rgba(107,122,153,0.3); background:rgba(107,122,153,0.1); color:var(--text-dim); cursor:pointer; transition:background 0.15s,border-color 0.15s,color 0.15s,transform 0.1s; }
+  /* Clock adjustment buttons — two sizes */
+  .clock-adj { font-size:9px; font-weight:900; line-height:1; padding:3px 5px; border-radius:6px; border:1.5px solid rgba(107,122,153,0.3); background:rgba(107,122,153,0.1); color:var(--text-dim); cursor:pointer; transition:background 0.15s,border-color 0.15s,color 0.15s,transform 0.1s; }
   .clock-adj:active { transform:scale(0.88); }
   .clock-adj.minus:active { background:rgba(255,61,90,0.2); border-color:rgba(255,61,90,0.5); color:var(--red); }
   .clock-adj.plus:active  { background:rgba(0,230,118,0.2); border-color:rgba(0,230,118,0.5); color:var(--green); }
   .clock-adj.disabled { opacity:0.2; pointer-events:none; }
+  .clock-adj-group { display:flex; flex-direction:column; gap:3px; }
 
   /* QUARTER PILLS */
   #quarter-row { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex-shrink:0; }
@@ -103,17 +106,8 @@
   /* KPI GRID 5×5 */
   #kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(5,1fr); gap:5px; flex:1; min-height:0; }
 
-  .kpi-btn {
-    position:relative; overflow:hidden;
-    border-radius:var(--radius); border:1.5px solid var(--border);
-    cursor:pointer; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    gap:0; padding:4px 6px 16px;
-    touch-action:none;
-    transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1);
-  }
+  .kpi-btn { position:relative; overflow:hidden; border-radius:var(--radius); border:1.5px solid var(--border); cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; padding:4px 6px 16px; touch-action:none; transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1); }
   .kpi-btn.blank { background:rgba(255,255,255,0.02); border-color:rgba(30,45,69,0.4); cursor:default; pointer-events:none; }
-
   .kpi-btn.cat-green  { background:linear-gradient(145deg,#0d2010,#0a1a0d); border-color:#1a4020; }
   .kpi-btn.cat-red    { background:linear-gradient(145deg,#200d0d,#1a0a0a); border-color:#401a1a; }
   .kpi-btn.cat-yellow { background:linear-gradient(145deg,#1a1500,#131000); border-color:#3a3000; }
@@ -199,10 +193,11 @@
   #confirm-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 24px; max-width:360px; width:100%; text-align:center; }
   #confirm-box h3 { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; margin-bottom:10px; }
   #confirm-box p { font-size:14px; color:var(--text-dim); line-height:1.5; margin-bottom:22px; }
-  .confirm-btns { display:flex; gap:10px; }
-  .confirm-btns button { flex:1; padding:14px; border-radius:var(--radius-sm); font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:1.5px solid; }
+  .confirm-btns { display:flex; gap:10px; flex-wrap:wrap; }
+  .confirm-btns button { flex:1; min-width:80px; padding:14px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; border:1.5px solid; }
   #confirm-yes { background:var(--red); border-color:var(--red); color:#fff; }
   #confirm-yes.positive { background:var(--green); border-color:var(--green); color:#000; }
+  #confirm-undo { display:none; background:rgba(255,171,64,0.15); border-color:var(--amber); color:var(--amber); }
   #confirm-no  { background:var(--surface2); border-color:var(--border); color:var(--text); }
 
   /* STATS MODAL */
@@ -286,6 +281,7 @@
       <button class="dir-btn" id="dir-rtl" onclick="selectDirection('Right to Left')">◄── Right to Left ──►</button>
     </div>
     <button id="dir-confirm" onclick="confirmDirection()">🏁 Confirm &amp; Start Clock</button>
+    <button id="dir-skip"    onclick="skipDirection()">Skip — decide later</button>
   </div>
 </div>
 
@@ -311,9 +307,17 @@
     <div id="match-info">
       <div id="quarter-label">Pre-Match</div>
       <div id="clock-row">
-        <button class="clock-adj minus disabled" id="clock-minus" onclick="adjustClock(-30)">−30s</button>
+        <!-- Minus group: −1m on top, −30s below -->
+        <div class="clock-adj-group">
+          <button class="clock-adj minus disabled" id="clock-minus-60" onclick="adjustClock(-60)">−1m</button>
+          <button class="clock-adj minus disabled" id="clock-minus-30" onclick="adjustClock(-30)">−30s</button>
+        </div>
         <div id="match-clock">00:00</div>
-        <button class="clock-adj plus disabled" id="clock-plus" onclick="adjustClock(+30)">+30s</button>
+        <!-- Plus group: +30s on top, +1m below -->
+        <div class="clock-adj-group">
+          <button class="clock-adj plus disabled" id="clock-plus-30" onclick="adjustClock(+30)">+30s</button>
+          <button class="clock-adj plus disabled" id="clock-plus-60" onclick="adjustClock(+60)">+1m</button>
+        </div>
       </div>
       <div id="game-status">Long-press Flow to reset</div>
     </div>
@@ -370,13 +374,15 @@
   </div>
 </div>
 
+<!-- CONFIRM DIALOG -->
 <div id="confirm-overlay">
   <div id="confirm-box">
     <h3 id="confirm-title">Are you sure?</h3>
     <p id="confirm-msg">This action cannot be undone.</p>
     <div class="confirm-btns">
-      <button id="confirm-yes" onclick="confirmAction()">Confirm</button>
-      <button id="confirm-no"  onclick="closeConfirm()">Cancel</button>
+      <button id="confirm-yes"  onclick="confirmAction()">Confirm</button>
+      <button id="confirm-undo" onclick="confirmUndoAction()">↩ Undo</button>
+      <button id="confirm-no"   onclick="closeConfirm()">Cancel</button>
     </div>
   </div>
 </div>
@@ -436,10 +442,11 @@ const KPI_GROUPS=[
 const STORAGE_KEY='gaa_event_log_v11',STATE_KEY='gaa_game_state_v11',META_KEY='gaa_match_meta_v11';
 const Q1_Q2=15*60,H_START=30*60,Q3_Q4=45*60;
 
-let eventLog=[],pendingAction=null,activeTouch=null;
+let eventLog=[],activeTouch=null;
+let pendingAction=null,pendingUndoAction=null;
 let state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null};
 let meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
-let pendingDirection=''; // holds selection before confirm
+let pendingDirection='';
 
 function init(){
   const sl=localStorage.getItem(STORAGE_KEY),ss=localStorage.getItem(STATE_KEY),sm=localStorage.getItem(META_KEY);
@@ -466,7 +473,7 @@ function submitMeta(){
     competition:document.getElementById('meta-competition').value.trim()||'—',
     venue:      document.getElementById('meta-venue').value.trim()||'—',
     date:       document.getElementById('meta-date').value,
-    directionFirstHalf: meta.directionFirstHalf||'', // preserve if already set
+    directionFirstHalf:meta.directionFirstHalf||'',
   };
   localStorage.setItem(META_KEY,JSON.stringify(meta));
   document.getElementById('meta-screen').classList.remove('visible');
@@ -483,16 +490,14 @@ function refreshBanner(){
   document.getElementById('bn-opposition').textContent=meta.opposition||'—';
   document.getElementById('bn-competition').textContent=meta.competition||'—';
   document.getElementById('bn-venue').textContent=meta.venue||'—';
-  const dir=meta.directionFirstHalf;
-  const dirEl=document.getElementById('bn-direction');
-  dirEl.textContent=dir?(dir==='Left to Right'?'L → R':'R → L'):'—';
-  dirEl.style.color=dir?'var(--amber)':'var(--text-dim)';
+  const dir=meta.directionFirstHalf,el=document.getElementById('bn-direction');
+  el.textContent=dir?(dir==='Left to Right'?'L → R':'R → L'):'—';
+  el.style.color=dir?'var(--amber)':'var(--text-dim)';
 }
 
 // ── DIRECTION MODAL ──────────────────────────────────────────────
 function showDirectionModal(){
   pendingDirection='';
-  // reset UI
   document.getElementById('dir-ltr').classList.remove('selected');
   document.getElementById('dir-rtl').classList.remove('selected');
   document.getElementById('dir-confirm').classList.remove('ready');
@@ -512,11 +517,14 @@ function confirmDirection(){
   localStorage.setItem(META_KEY,JSON.stringify(meta));
   document.getElementById('direction-overlay').classList.remove('visible');
   refreshBanner();
-  // now actually start the game
+  doStartGame();
+}
+function skipDirection(){
+  document.getElementById('direction-overlay').classList.remove('visible');
   doStartGame();
 }
 
-// Zone detection
+// ── GRID TOUCH ───────────────────────────────────────────────────
 function getZone(btn,clientX){const r=btn.getBoundingClientRect(),rel=(clientX-r.left)/r.width;return rel<0.333?'Left':rel<0.667?'Centre':'Right';}
 function getOvIdx(zone){return zone==='Left'?0:zone==='Centre'?1:2;}
 function clearZones(btn){btn.querySelectorAll('.zone-overlay,.zone-lbl').forEach(el=>el.classList.remove('active'));}
@@ -525,7 +533,6 @@ function highlightZone(btn,zone){
   btn.querySelectorAll('.zone-overlay')[getOvIdx(zone)].classList.add('active');
   btn.querySelectorAll('.zone-lbl')[getOvIdx(zone)].classList.add('active');
 }
-
 function setupGridTouch(){
   const g=document.getElementById('kpi-grid');
   g.addEventListener('touchstart',e=>{const t=e.changedTouches[0],btn=t.target.closest('.kpi-btn:not(.blank)');if(!btn)return;e.preventDefault();activeTouch={btn,identifier:t.identifier};highlightZone(btn,getZone(btn,t.clientX));},{passive:false});
@@ -552,7 +559,8 @@ function fireEvent(btn,evt,zone){
 }
 function undoLast(){
   if(eventLog.length===0){showToast('Nothing to undo');return;}
-  const last=eventLog.pop();localStorage.setItem(STORAGE_KEY,JSON.stringify(eventLog));
+  const last=eventLog.pop();
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(eventLog));
   showToast(`↩ Undid: ${last.kpi} [${last.location}] @ ${last.time}`);
   refreshCounts();refreshScoreboard();updateQtrPills(getMatchSeconds());
 }
@@ -562,6 +570,7 @@ function showLocBadge(btn,zone){
   b.classList.add('show');setTimeout(()=>b.classList.remove('show'),800);
 }
 
+// ── CLOCK ────────────────────────────────────────────────────────
 function getMatchSeconds(atMs){
   const now=atMs!==undefined?atMs:Date.now();
   if(state.gameFlow==='pre')return 0;
@@ -576,63 +585,24 @@ function getMatchSeconds(atMs){
 }
 function getQuarterFromSeconds(s){return s<Q1_Q2?1:s<H_START?2:s<Q3_Q4?3:4;}
 
-// Game flow — Start Game now routes through direction modal
-function doStartGameFlow(){
-  // If direction already set (e.g. reloaded mid-match), skip modal
-  if(meta.directionFirstHalf){doStartGame();return;}
-  showDirectionModal();
-}
-
-function advanceGameFlow(){({pre:doStartGameFlow,first_half:doEndFirstHalf,half_time:doStartSecondHalf,second_half:confirmEndGame,ended:()=>showToast('Full Time — long-press ▶ for new game')})[state.gameFlow]?.();}
-function doStartGame(){Object.assign(state,{gameFlow:'first_half',firstHalfStart:Date.now(),firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});saveState();refreshAll();showToast('🏁 Kick off — 1st Half');}
-function doEndFirstHalf(){if(state.pausedAt){state.firstHalfPausedMs+=Date.now()-state.pausedAt;state.pausedAt=null;}state.gameFlow='half_time';state.firstHalfEnd=Date.now();saveState();refreshAll();showToast('⏸ Half Time');}
-function doStartSecondHalf(){Object.assign(state,{gameFlow:'second_half',secondHalfStart:Date.now(),secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});saveState();refreshAll();showToast('▶ 2nd Half');}
-function doEndGame(){if(state.pausedAt){state.secondHalfPausedMs+=Date.now()-state.pausedAt;state.pausedAt=null;}state.gameFlow='ended';state.secondHalfEnd=Date.now();saveState();document.getElementById('game-over-banner').classList.add('visible');refreshAll();showToast('⏹ Full Time');}
-function togglePause(){
-  if(state.gameFlow!=='first_half'&&state.gameFlow!=='second_half'){showToast('Pause only during active half');return;}
-  if(state.pausedAt!==null){const d=Date.now()-state.pausedAt;state.gameFlow==='first_half'?state.firstHalfPausedMs+=d:state.secondHalfPausedMs+=d;state.pausedAt=null;saveState();refreshAll();showToast('▶ Resumed');}
-  else{state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');}
-}
-function confirmEndGame(){showConfirm('⏹ End Game','Mark match as finished?',doEndGame,true);}
-
-let lpTimer=null;
-function setupFlowLongPress(){
-  const btn=document.getElementById('flow-btn');
-  const start=()=>{btn.classList.add('long-pressing');lpTimer=setTimeout(()=>{btn.classList.remove('long-pressing');confirmNewGame();},800);};
-  const cancel=()=>{clearTimeout(lpTimer);btn.classList.remove('long-pressing');};
-  btn.addEventListener('touchstart',start,{passive:true});btn.addEventListener('touchend',cancel,{passive:true});btn.addEventListener('touchcancel',cancel,{passive:true});
-  btn.addEventListener('mousedown',start);btn.addEventListener('mouseup',cancel);btn.addEventListener('mouseleave',cancel);
-}
-function confirmNewGame(){showConfirm('⊕ New Game','Clear all match data and metadata?',doNewGame,false);}
-function doNewGame(){
-  eventLog=[];meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
-  state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null};
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(eventLog));localStorage.removeItem(META_KEY);saveState();
-  document.getElementById('game-over-banner').classList.remove('visible');
-  document.getElementById('meta-opposition').value='';document.getElementById('meta-competition').value='';
-  document.getElementById('meta-venue').value='';document.getElementById('meta-date').value=fmtDate(new Date());
-  document.getElementById('meta-screen').classList.add('visible');
-  refreshBanner();refreshAll();
-}
-
-function showConfirm(title,msg,action,isPos){document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;document.getElementById('confirm-yes').className=isPos?'positive':'';pendingAction=action;document.getElementById('confirm-overlay').classList.add('visible');}
-function confirmAction(){closeConfirm();if(pendingAction){pendingAction();pendingAction=null;}}
-function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('visible');}
-
 function adjustClock(dSecs){
-  const can=state.gameFlow==='first_half'||state.gameFlow==='second_half'||state.gameFlow==='half_time';if(!can)return;
+  const can=state.gameFlow==='first_half'||state.gameFlow==='second_half'||state.gameFlow==='half_time';
+  if(!can)return;
   const dMs=dSecs*1000;
   if(state.gameFlow==='first_half'){state.firstHalfStart-=dMs;if(getMatchSeconds()<0)state.firstHalfStart+=dMs;}
   else if(state.gameFlow==='half_time'){state.firstHalfEnd=(state.firstHalfEnd||Date.now())+dMs;if(getMatchSeconds()<0)state.firstHalfEnd-=dMs;}
   else{state.secondHalfStart-=dMs;if(getMatchSeconds()<H_START)state.secondHalfStart+=dMs;}
   saveState();refreshClockDisplay();
-  showToast(`Clock ${dSecs>0?'+':''}${dSecs}s → ${document.getElementById('match-clock').textContent}`);
+  const label=Math.abs(dSecs)===60?(dSecs>0?'+1m':'-1m'):(dSecs>0?'+30s':'-30s');
+  showToast(`Clock ${label} → ${document.getElementById('match-clock').textContent}`);
 }
+
 function refreshClockDisplay(){
   const clk=document.getElementById('match-clock'),st=document.getElementById('game-status'),ql=document.getElementById('quarter-label');
   const can=state.gameFlow==='first_half'||state.gameFlow==='second_half'||state.gameFlow==='half_time';
-  document.getElementById('clock-minus').classList.toggle('disabled',!can);
-  document.getElementById('clock-plus').classList.toggle('disabled',!can);
+  ['clock-minus-30','clock-minus-60','clock-plus-30','clock-plus-60'].forEach(id=>
+    document.getElementById(id).classList.toggle('disabled',!can)
+  );
   if(state.gameFlow==='pre'){clk.textContent='00:00';clk.classList.remove('paused');st.textContent='Long-press Flow to reset';ql.textContent='Pre-Match';updateQtrPills(0);return;}
   const secs=getMatchSeconds();
   clk.textContent=`${Math.floor(secs/60).toString().padStart(2,'0')}:${(secs%60).toString().padStart(2,'0')}`;
@@ -656,11 +626,154 @@ function updateQtrPills(secs){
   }
 }
 
+// ── GAME FLOW ────────────────────────────────────────────────────
+function advanceGameFlow(){
+  ({
+    pre:         doStartGameFlow,
+    first_half:  confirmEndFirstHalf,
+    half_time:   confirmStartSecondHalf,
+    second_half: confirmEndGame,
+    ended:       ()=>showToast('Full Time — long-press ▶ for new game'),
+  })[state.gameFlow]?.();
+}
+
+function doStartGameFlow(){
+  if(meta.directionFirstHalf){doStartGame();return;}
+  showDirectionModal();
+}
+
+// snapshot of state before a flow change — used by undo in confirms
+let stateSnapshot=null;
+function snapshotState(){stateSnapshot=JSON.parse(JSON.stringify(state));}
+function restoreSnapshot(){
+  if(!stateSnapshot)return;
+  state=JSON.parse(JSON.stringify(stateSnapshot));
+  stateSnapshot=null;
+  saveState();refreshAll();
+}
+
+function confirmEndFirstHalf(){
+  snapshotState();
+  showConfirm(
+    '⏸ End 1st Half',
+    'Mark first half as finished and stop the clock?',
+    doEndFirstHalf,
+    false,
+    restoreSnapshot,
+    '↩ Undo'
+  );
+}
+function confirmStartSecondHalf(){
+  snapshotState();
+  showConfirm(
+    '▶ Start 2nd Half',
+    'Start the second half clock now?',
+    doStartSecondHalf,
+    true,
+    restoreSnapshot,
+    '↩ Undo Half'
+  );
+}
+function confirmEndGame(){
+  snapshotState();
+  showConfirm(
+    '⏹ End Game',
+    'Mark match as finished?',
+    doEndGame,
+    false,
+    restoreSnapshot,
+    '↩ Undo'
+  );
+}
+
+function doStartGame(){
+  Object.assign(state,{gameFlow:'first_half',firstHalfStart:Date.now(),firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});
+  saveState();refreshAll();showToast('🏁 Kick off — 1st Half');
+}
+function doEndFirstHalf(){
+  if(state.pausedAt){state.firstHalfPausedMs+=Date.now()-state.pausedAt;state.pausedAt=null;}
+  state.gameFlow='half_time';state.firstHalfEnd=Date.now();
+  saveState();refreshAll();showToast('⏸ Half Time');
+}
+function doStartSecondHalf(){
+  Object.assign(state,{gameFlow:'second_half',secondHalfStart:Date.now(),secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});
+  saveState();refreshAll();showToast('▶ 2nd Half');
+}
+function doEndGame(){
+  if(state.pausedAt){state.secondHalfPausedMs+=Date.now()-state.pausedAt;state.pausedAt=null;}
+  state.gameFlow='ended';state.secondHalfEnd=Date.now();
+  saveState();document.getElementById('game-over-banner').classList.add('visible');
+  refreshAll();showToast('⏹ Full Time');
+}
+
+function togglePause(){
+  if(state.gameFlow!=='first_half'&&state.gameFlow!=='second_half'){showToast('Pause only during active half');return;}
+  if(state.pausedAt!==null){
+    const d=Date.now()-state.pausedAt;
+    state.gameFlow==='first_half'?state.firstHalfPausedMs+=d:state.secondHalfPausedMs+=d;
+    state.pausedAt=null;saveState();refreshAll();showToast('▶ Resumed');
+  } else {
+    state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');
+  }
+}
+
+// Long-press new game
+let lpTimer=null;
+function setupFlowLongPress(){
+  const btn=document.getElementById('flow-btn');
+  const start=()=>{btn.classList.add('long-pressing');lpTimer=setTimeout(()=>{btn.classList.remove('long-pressing');confirmNewGame();},800);};
+  const cancel=()=>{clearTimeout(lpTimer);btn.classList.remove('long-pressing');};
+  btn.addEventListener('touchstart',start,{passive:true});btn.addEventListener('touchend',cancel,{passive:true});btn.addEventListener('touchcancel',cancel,{passive:true});
+  btn.addEventListener('mousedown',start);btn.addEventListener('mouseup',cancel);btn.addEventListener('mouseleave',cancel);
+}
+function confirmNewGame(){showConfirm('⊕ New Game','Clear all match data and metadata?',doNewGame,false);}
+function doNewGame(){
+  eventLog=[];meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
+  state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null};
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(eventLog));localStorage.removeItem(META_KEY);saveState();
+  document.getElementById('game-over-banner').classList.remove('visible');
+  document.getElementById('meta-opposition').value='';document.getElementById('meta-competition').value='';
+  document.getElementById('meta-venue').value='';document.getElementById('meta-date').value=fmtDate(new Date());
+  document.getElementById('meta-screen').classList.add('visible');
+  refreshBanner();refreshAll();
+}
+
+// ── CONFIRM DIALOG ───────────────────────────────────────────────
+function showConfirm(title,msg,action,isPos,undoAction,undoLabel){
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  const yesBtn=document.getElementById('confirm-yes');
+  yesBtn.className=isPos?'positive':'';
+  pendingAction=action;
+  // Undo button in confirm — shown only when an undoAction is provided
+  const undoBtn=document.getElementById('confirm-undo');
+  if(undoAction){
+    pendingUndoAction=undoAction;
+    undoBtn.textContent=undoLabel||'↩ Undo';
+    undoBtn.style.display='';
+  } else {
+    pendingUndoAction=null;
+    undoBtn.style.display='none';
+  }
+  document.getElementById('confirm-overlay').classList.add('visible');
+}
+function confirmAction(){closeConfirm();if(pendingAction){pendingAction();pendingAction=null;}}
+function confirmUndoAction(){closeConfirm();if(pendingUndoAction){pendingUndoAction();pendingUndoAction=null;}}
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('visible');}
+
+// ── REFRESH ──────────────────────────────────────────────────────
 function refreshAll(){refreshBanner();refreshCounts();refreshScoreboard();refreshFlowBtn();refreshPauseBtn();refreshClockDisplay();}
 function refreshFlowBtn(){
   const btn=document.getElementById('flow-btn');
-  const m={pre:{label:'▶ Start Game',bg:'rgba(0,230,118,0.15)',bc:'rgba(0,230,118,0.5)',c:'var(--green)'},first_half:{label:'⏸ End 1st Half',bg:'rgba(255,171,64,0.15)',bc:'rgba(255,171,64,0.5)',c:'var(--amber)'},half_time:{label:'▶ 2nd Half',bg:'rgba(0,212,255,0.15)',bc:'rgba(0,212,255,0.5)',c:'var(--accent)'},second_half:{label:'⏹ End Game',bg:'rgba(255,61,90,0.15)',bc:'rgba(255,61,90,0.5)',c:'var(--red)'},ended:{label:'— Full Time',bg:'rgba(107,122,153,0.10)',bc:'rgba(107,122,153,0.3)',c:'var(--text-dim)'}};
-  const s=m[state.gameFlow]||m.pre;btn.textContent=s.label;btn.style.background=s.bg;btn.style.borderColor=s.bc;btn.style.color=s.c;
+  const m={
+    pre:         {label:'▶ Start Game',    bg:'rgba(0,230,118,0.15)', bc:'rgba(0,230,118,0.5)', c:'var(--green)'},
+    first_half:  {label:'⏸ End 1st Half', bg:'rgba(255,171,64,0.15)',bc:'rgba(255,171,64,0.5)',c:'var(--amber)'},
+    half_time:   {label:'▶ 2nd Half',      bg:'rgba(0,212,255,0.15)', bc:'rgba(0,212,255,0.5)', c:'var(--accent)'},
+    second_half: {label:'⏹ End Game',      bg:'rgba(255,61,90,0.15)', bc:'rgba(255,61,90,0.5)', c:'var(--red)'},
+    ended:       {label:'— Full Time',     bg:'rgba(107,122,153,0.10)',bc:'rgba(107,122,153,0.3)',c:'var(--text-dim)'},
+  };
+  const s=m[state.gameFlow]||m.pre;
+  btn.textContent=s.label;btn.style.background=s.bg;btn.style.borderColor=s.bc;btn.style.color=s.c;
 }
 function refreshPauseBtn(){
   const btn=document.getElementById('pause-btn'),can=state.gameFlow==='first_half'||state.gameFlow==='second_half';
@@ -696,6 +809,7 @@ function triggerRipple(btn,evt){
 }
 function triggerScale(btn){btn.style.transform='scale(0.90)';setTimeout(()=>{btn.style.transform='scale(1.04)';},100);setTimeout(()=>{btn.style.transform='';},220);if(navigator.vibrate)navigator.vibrate(18);}
 
+// ── STATS MODAL ──────────────────────────────────────────────────
 function switchTab(tab){
   document.querySelectorAll('.modal-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.toggle('active',t.id===`tab-${tab}`));
@@ -709,21 +823,21 @@ function showDisplay(){
   const cell=(v,bad,q,isTotal=false)=>`<td class="${isTotal?'total-col':q<=maxQ?(bad?'bad':'good'):''}">${v}</td>`;
   const groups=[
     {label:'⬢ Execution', rows:[
-      {label:'Our Scores',        target:'5', qval:q=>c('Point – Play (Us)',q)+c('Point – Free (Us)',q)+c('Goal – Us',q),                                                    bad:v=>v<5},
-      {label:'Their Scores',      target:'4', qval:q=>c('Point – Play (Them)',q)+c('Point – Free (Them)',q)+c('Goal – Them',q),                                              bad:v=>v>4},
-      {label:'Shot Eff – Play (Us)',  target:'70%', isPct:true, qval:q=>({n:c('Point – Play (Us)',q),  d:c('Point – Play (Us)',q)+c('Miss – Play (Us)',q)}),                      bad:(n,d)=>d>0&&n/d<0.70},
-      {label:'Shot Eff – Free (Us)',  target:'80%', isPct:true, qval:q=>({n:c('Point – Free (Us)',q),  d:c('Point – Free (Us)',q)+c('Miss – Free (Us)',q)}),                      bad:(n,d)=>d>0&&n/d<0.80},
-      {label:'Total Shot Eff (Us)',   target:'75%', isPct:true, qval:q=>{const n=c('Point – Play (Us)',q)+c('Point – Free (Us)',q);const d=n+c('Miss – Play (Us)',q)+c('Miss – Free (Us)',q);return{n,d};}, bad:(n,d)=>d>0&&n/d<0.75},
+      {label:'Our Scores',           target:'5',   qval:q=>c('Point – Play (Us)',q)+c('Point – Free (Us)',q)+c('Goal – Us',q),                                                           bad:v=>v<5},
+      {label:'Their Scores',         target:'4',   qval:q=>c('Point – Play (Them)',q)+c('Point – Free (Them)',q)+c('Goal – Them',q),                                                     bad:v=>v>4},
+      {label:'Shot Eff – Play (Us)', target:'70%', isPct:true, qval:q=>({n:c('Point – Play (Us)',q),  d:c('Point – Play (Us)',q)+c('Miss – Play (Us)',q)}),                               bad:(n,d)=>d>0&&n/d<0.70},
+      {label:'Shot Eff – Free (Us)', target:'80%', isPct:true, qval:q=>({n:c('Point – Free (Us)',q),  d:c('Point – Free (Us)',q)+c('Miss – Free (Us)',q)}),                               bad:(n,d)=>d>0&&n/d<0.80},
+      {label:'Total Shot Eff (Us)',  target:'75%', isPct:true, qval:q=>{const n=c('Point – Play (Us)',q)+c('Point – Free (Us)',q);const d=n+c('Miss – Play (Us)',q)+c('Miss – Free (Us)',q);return{n,d};}, bad:(n,d)=>d>0&&n/d<0.75},
     ]},
     {label:'⬢ Work Rate', rows:[
-      {label:'Our PO Retention',    target:'70%', isPct:true, qval:q=>({n:c('Our PO – We Win',q),    d:c('Our PO – We Win',q)+c('Our PO – We Lose',q)}),                         bad:(n,d)=>d>0&&n/d<0.70},
-      {label:'Their PO – We Win',   target:'50%', isPct:true, qval:q=>({n:c('Their PO – We Win',q), d:c('Their PO – We Win',q)+c('Their PO – We Lose',q)}),                      bad:(n,d)=>d>0&&n/d<0.50},
-      {label:'Contested Ball Win%', target:'51%', isPct:true, qval:q=>({n:c('Contested Win',q),     d:c('Contested Win',q)+c('Contested Loss',q)}),                              bad:(n,d)=>d>0&&n/d<0.51},
-      {label:'T/O Forced Diff',     target:'+1',  isDiff:true,qval:q=>c('T/O Forced (Us)',q)-c('T/O Forced (Them)',q),                                                           bad:v=>v<1},
+      {label:'Our PO Retention',    target:'70%', isPct:true,  qval:q=>({n:c('Our PO – We Win',q),   d:c('Our PO – We Win',q)+c('Our PO – We Lose',q)}),                                bad:(n,d)=>d>0&&n/d<0.70},
+      {label:'Their PO – We Win',   target:'50%', isPct:true,  qval:q=>({n:c('Their PO – We Win',q),d:c('Their PO – We Win',q)+c('Their PO – We Lose',q)}),                             bad:(n,d)=>d>0&&n/d<0.50},
+      {label:'Contested Ball Win%', target:'51%', isPct:true,  qval:q=>({n:c('Contested Win',q),    d:c('Contested Win',q)+c('Contested Loss',q)}),                                     bad:(n,d)=>d>0&&n/d<0.51},
+      {label:'T/O Forced Diff',     target:'+1',  isDiff:true, qval:q=>c('T/O Forced (Us)',q)-c('T/O Forced (Them)',q),                                                                  bad:v=>v<1},
     ]},
     {label:'⬢ Composure', rows:[
-      {label:'Free Win%',           target:'60%', isPct:true, qval:q=>({n:c('Free Win',q),d:c('Free Win',q)+c('Free Lost',q)}),                                                  bad:(n,d)=>d>0&&n/d<0.60},
-      {label:'Unforced T/O Diff',   target:'+1',  isDiff:true,qval:q=>c('Unforced Win',q)-c('Unforced Loss',q),                                                                  bad:v=>v<1},
+      {label:'Free Win%',         target:'60%', isPct:true,  qval:q=>({n:c('Free Win',q),d:c('Free Win',q)+c('Free Lost',q)}),                                                          bad:(n,d)=>d>0&&n/d<0.60},
+      {label:'Unforced T/O Diff', target:'+1',  isDiff:true, qval:q=>c('Unforced Win',q)-c('Unforced Loss',q),                                                                           bad:v=>v<1},
     ]},
     {label:'⬢ Misc', rows:[
       {label:'Run thru 65',  target:'—', noColor:true, qval:q=>c('Run thru 65',q)},
@@ -775,6 +889,7 @@ function showDisplay(){
 }
 function hideDisplay(evt){if(evt&&evt.target!==document.getElementById('modal-overlay'))return;document.getElementById('modal-overlay').classList.remove('visible');}
 
+// ── CSV ──────────────────────────────────────────────────────────
 function exportCSV(){
   if(eventLog.length===0){showToast('No events logged yet');return;}
   const lines=[];
@@ -805,8 +920,8 @@ function exportCSV(){
 let csvBlobUrl=null;
 function showCsvOverlay(url,fn){if(csvBlobUrl)URL.revokeObjectURL(csvBlobUrl);csvBlobUrl=url;const l=document.getElementById('csv-link');l.href=url;l.download=fn;l.textContent=`📄 ${fn}`;document.getElementById('csv-overlay').classList.add('visible');}
 function closeCsvOverlay(){document.getElementById('csv-overlay').classList.remove('visible');if(csvBlobUrl){URL.revokeObjectURL(csvBlobUrl);csvBlobUrl=null;}showToast('CSV ready — use Share → Save to Files');}
-function saveState(){localStorage.setItem(STATE_KEY,JSON.stringify(state));}
 
+function saveState(){localStorage.setItem(STATE_KEY,JSON.stringify(state));}
 let toastTimer=null;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500);}
 
