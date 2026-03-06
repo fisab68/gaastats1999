@@ -21,7 +21,6 @@
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html,body { width:100%; height:100%; background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow:hidden; user-select:none; -webkit-user-select:none; }
 
-  /* ── METADATA SCREEN ─────────────────────────────────────────── */
   #meta-screen { display:none; position:fixed; inset:0; z-index:500; background:var(--bg); align-items:center; justify-content:center; padding:24px; }
   #meta-screen.visible { display:flex; }
   #meta-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 28px 24px; width:100%; max-width:480px; display:flex; flex-direction:column; gap:20px; }
@@ -36,7 +35,6 @@
   #meta-start { width:100%; padding:16px; background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(0,230,118,0.15)); border:1.5px solid var(--accent); border-radius:var(--radius-sm); color:var(--accent); font-family:'Inter',sans-serif; font-size:14px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s,transform 0.1s; }
   #meta-start:active { transform:scale(0.97); }
 
-  /* ── DIRECTION MODAL ─────────────────────────────────────────── */
   #direction-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:600; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(10px); }
   #direction-overlay.visible { display:flex; }
   #direction-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 24px; max-width:400px; width:100%; display:flex; flex-direction:column; gap:18px; }
@@ -58,10 +56,8 @@
   #dir-skip { width:100%; padding:10px; background:transparent; border:1px solid rgba(107,122,153,0.25); border-radius:var(--radius-sm); color:var(--text-dim); font-family:'Inter',sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; margin-top:-6px; }
   #dir-skip:active { border-color:var(--text-dim); color:var(--text); }
 
-  /* ── MAIN APP ────────────────────────────────────────────────── */
   #app { display:grid; grid-template-rows:auto auto auto 1fr auto; height:100vh; padding:6px 8px 5px; gap:5px; }
 
-  /* MATCH BANNER */
   #match-banner { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:4px 12px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .banner-item { display:flex; flex-direction:column; align-items:center; gap:0; }
   .banner-lbl { font-size:8px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); }
@@ -71,7 +67,6 @@
   #banner-edit { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:6px; border:1px solid rgba(107,122,153,0.3); background:rgba(107,122,153,0.08); color:var(--text-dim); cursor:pointer; flex-shrink:0; transition:border-color 0.15s,color 0.15s; }
   #banner-edit:active { border-color:var(--accent); color:var(--accent); }
 
-  /* SCOREBOARD */
   #scoreboard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:4px 16px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .score-team { display:flex; flex-direction:column; align-items:center; gap:0; }
   .score-label { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); }
@@ -97,7 +92,6 @@
   .clock-adj.disabled { opacity:0.2; pointer-events:none; }
   .clock-adj-group { display:flex; flex-direction:column; gap:3px; }
 
-  /* QUARTER PILLS */
   #quarter-row { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex-shrink:0; }
   .qtr-pill { background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); color:var(--text-dim); font-size:11px; font-weight:700; letter-spacing:1px; padding:5px 4px; text-transform:uppercase; text-align:center; pointer-events:none; transition:background 0.3s,border-color 0.3s,color 0.3s,box-shadow 0.3s; display:flex; flex-direction:column; align-items:center; gap:0; }
   .qtr-pill.active { background:var(--accent); border-color:var(--accent); color:#000; box-shadow:0 0 14px rgba(0,212,255,0.4); }
@@ -107,7 +101,6 @@
   .qtr-pill.done .qtr-score { color:rgba(0,212,255,0.6); }
   .qtr-pill:not(.active):not(.done) .qtr-score { color:var(--text-dim); opacity:0.5; }
 
-  /* KPI GRID 5×5 */
   #kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(5,1fr); gap:5px; flex:1; min-height:0; }
 
   .kpi-btn { position:relative; overflow:hidden; border-radius:var(--radius); border:1.5px solid var(--border); cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; padding:4px 6px 16px; touch-action:none; transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1); }
@@ -180,7 +173,6 @@
   .ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,0.25); transform:scale(0); animation:rip 0.45s ease-out forwards; pointer-events:none; z-index:5; }
   @keyframes rip { 0%{transform:scale(0);opacity:1;} 100%{transform:scale(4);opacity:0;} }
 
-  /* BOTTOM ROW */
   #bottom-row { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; flex-shrink:0; }
   .action-btn { padding:9px 4px; border-radius:var(--radius-sm); font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; cursor:pointer; border:1.5px solid; transition:background 0.2s,border-color 0.2s,color 0.2s; text-align:center; line-height:1.3; }
   .action-btn:active { opacity:0.72; transform:scale(0.95); }
@@ -192,7 +184,6 @@
   #export-btn  { background:rgba(179,136,255,0.12); border-color:rgba(179,136,255,0.4); color:var(--purple); }
   #flow-btn.long-pressing { box-shadow:0 0 0 3px rgba(255,61,90,0.6); }
 
-  /* CONFIRM */
   #confirm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:200; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(8px); }
   #confirm-overlay.visible { display:flex; }
   #confirm-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 24px; max-width:360px; width:100%; text-align:center; }
@@ -205,7 +196,6 @@
   #confirm-undo { display:none; background:rgba(255,171,64,0.15); border-color:var(--amber); color:var(--amber); }
   #confirm-no  { background:var(--surface2); border-color:var(--border); color:var(--text); }
 
-  /* STATS MODAL */
   #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; align-items:center; justify-content:center; padding:12px; backdrop-filter:blur(6px); }
   #modal-overlay.visible { display:flex; }
   #modal-box { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:16px; width:100%; max-width:860px; max-height:92vh; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
@@ -226,7 +216,6 @@
   tr.cat-header td { background:rgba(255,255,255,0.04); color:var(--text-dim) !important; font-size:10px !important; font-weight:900 !important; letter-spacing:2px !important; text-transform:uppercase !important; padding:7px 6px !important; border-bottom:none !important; }
   #close-modal-btn { margin-top:4px; width:100%; padding:14px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; flex-shrink:0; }
 
-  /* CSV */
   #csv-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:300; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(8px); }
   #csv-overlay.visible { display:flex; }
   #csv-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:24px; max-width:420px; width:100%; text-align:center; }
@@ -241,35 +230,28 @@
   #toast { position:fixed; bottom:60px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--surface2); border:1px solid var(--border); border-radius:30px; padding:7px 20px; font-size:13px; font-weight:600; color:var(--text-dim); opacity:0; transition:all 0.25s; z-index:400; white-space:nowrap; }
   #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-  /* ── KPI Tab ─────────────────────────────────────────────────── */
   #tab-kpi { display:flex; flex-direction:column; gap:8px; padding:4px 0 12px; }
 
   #kpi-qtr-selector { display:flex; gap:4px; background:var(--surface2); border-radius:var(--radius-sm); padding:3px; }
   .kqi-qbtn { flex:1; padding:7px 4px; border-radius:6px; border:none; font-family:'Inter',sans-serif; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; cursor:pointer; background:transparent; color:var(--text-dim); transition:all 0.15s; }
   .kqi-qbtn.active { background:var(--green); color:#000; box-shadow:0 0 10px rgba(0,230,118,0.3); }
 
-  /* Row 1 — Contested Ball + Turnovers side by side */
   #kpi-row1 { display:grid; grid-template-columns:3fr 1fr; gap:8px; }
 
-  /* Contested Ball card */
   #kpi-contested-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; }
   #kpi-contested-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
 
-  /* Turnovers card */
   #kpi-turnovers-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; display:flex; flex-direction:column; }
   #kpi-turnovers-grid { display:flex; flex-direction:column; gap:6px; flex:1; }
 
-  /* Shared stat box */
   .kpi-stat-box { border-radius:var(--radius-sm); padding:10px 8px; text-align:center; border:1.5px solid; display:flex; flex-direction:column; justify-content:center; }
   .kpi-stat-box-label { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-dim); margin-bottom:5px; }
   .kpi-stat-box-val { font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1; }
   .kpi-stat-box-sub { font-size:11px; color:var(--text-dim); margin-top:6px; }
 
-  /* Neutral (Turnovers) */
   .kpi-stat-box.neutral { background:rgba(107,122,153,0.08); border-color:rgba(107,122,153,0.2); }
   .kpi-stat-box.neutral .kpi-stat-box-val { color:var(--text); }
 
-  /* Pos / Neg / Zero for contested boxes */
   .kpi-stat-box.s-pos  { background:rgba(0,230,118,0.12);  border-color:rgba(0,230,118,0.3); }
   .kpi-stat-box.s-neg  { background:rgba(255,61,90,0.12);  border-color:rgba(255,61,90,0.3); }
   .kpi-stat-box.s-zero { background:rgba(107,122,153,0.08); border-color:rgba(107,122,153,0.2); }
@@ -298,20 +280,7 @@
   .kpi-shoot-divider { border-top:1px solid var(--border); margin:4px 0; }
   .kpi-conv { font-size:22px; margin-top:2px; }
 
-  /* HALFTIME TABLE */
-  .ht-th { padding:9px 8px; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); text-align:center; }
-  .ht-row { display:grid; grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.9fr; border-bottom:1px solid rgba(30,45,69,0.6); }
-  .ht-row:last-child { border-bottom:none; }
-  .ht-row.alt { background:rgba(255,255,255,0.015); }
-  .ht-label { padding:10px 8px; font-size:12px; font-weight:700; color:var(--text); letter-spacing:0.3px; display:flex; align-items:center; }
-  .ht-tgt   { padding:10px 4px; font-size:12px; font-weight:700; color:var(--amber); text-align:center; display:flex; align-items:center; justify-content:center; }
-  .ht-cell  { padding:6px 4px; display:flex; align-items:center; justify-content:center; }
-  .ht-val   { min-width:44px; padding:3px 6px; border-radius:6px; border:1.5px solid transparent; text-align:center; font-size:14px; font-weight:800; color:var(--text); }
-  .ht-val.ht-pos  { color:var(--green); background:rgba(0,230,118,0.08);  border-color:rgba(0,230,118,0.25); }
-  .ht-val.ht-neg  { color:var(--red);   background:rgba(255,61,90,0.08);  border-color:rgba(255,61,90,0.25); }
-  .ht-val.ht-zero { color:var(--text);  background:transparent;           border-color:transparent; }
-
- and (min-width:900px) {
+  @media (orientation:landscape) and (min-width:900px) {
     #app { padding:5px 10px 4px; gap:4px; }
     #scoreboard { padding:3px 20px; }
     .score-value { font-size:36px; }
@@ -324,7 +293,6 @@
 </head>
 <body>
 
-<!-- MORNING METADATA SCREEN -->
 <div id="meta-screen">
   <div id="meta-box">
     <h2>⬢ Match Setup</h2>
@@ -337,7 +305,6 @@
   </div>
 </div>
 
-<!-- KICK-OFF DIRECTION MODAL -->
 <div id="direction-overlay">
   <div id="direction-box">
     <h3>🧭 Our Direction — 1st Half</h3>
@@ -437,7 +404,7 @@
   </div>
 
   <div id="bottom-row">
-    <button class="action-btn" id="flow-btn">▶ Start Game</button>
+    <button class="action-btn" id="flow-btn"    onclick="advanceGameFlow()">▶ Start Game</button>
     <button class="action-btn" id="pause-btn"   onclick="togglePause()">⏸ Pause</button>
     <button class="action-btn" id="undo-btn"    onclick="undoLast()">↩ Undo</button>
     <button class="action-btn" id="display-btn" onclick="showDisplay()">📊 Stats</button>
@@ -445,7 +412,6 @@
   </div>
 </div>
 
-<!-- CONFIRM DIALOG -->
 <div id="confirm-overlay">
   <div id="confirm-box">
     <h3 id="confirm-title">Are you sure?</h3>
@@ -466,10 +432,8 @@
     <div id="modal-tabs">
       <div class="modal-tab active" data-tab="kpi" onclick="switchTab('kpi')">📈 KPIs</div>
       <div class="modal-tab"        data-tab="raw" onclick="switchTab('raw')">📋 Raw Counts</div>
-      <div class="modal-tab"        data-tab="ht"  onclick="switchTab('ht')">⏸ Half Time</div>
     </div>
 
-    <!-- KPI TAB -->
     <div class="tab-content active" id="tab-kpi">
 
       <div id="kpi-qtr-selector">
@@ -480,32 +444,25 @@
         <button class="kqi-qbtn" data-q="4" onclick="setKpiQ('4')">QTR4</button>
       </div>
 
-      <!-- Row 1 — Contested Ball + Turnovers -->
       <div id="kpi-row1">
-
-        <!-- Contested Ball -->
         <div id="kpi-contested-card">
           <div class="kpi-card-title">Contested Ball</div>
           <div id="kpi-contested-grid">
-            <!-- Win % -->
             <div class="kpi-stat-box s-zero" id="cb-winpct-box">
               <div class="kpi-stat-box-label">Win %</div>
               <div class="kpi-stat-box-val" id="cb-winpct-val">—</div>
               <div class="kpi-stat-box-sub" id="cb-winpct-sub"></div>
             </div>
-            <!-- Def diff -->
             <div class="kpi-stat-box s-zero" id="cb-def-box">
               <div class="kpi-stat-box-label">Def</div>
               <div class="kpi-stat-box-val" id="cb-def-val">—</div>
               <div class="kpi-stat-box-sub" id="cb-def-sub"></div>
             </div>
-            <!-- Mid diff -->
             <div class="kpi-stat-box s-zero" id="cb-mid-box">
               <div class="kpi-stat-box-label">Mid</div>
               <div class="kpi-stat-box-val" id="cb-mid-val">—</div>
               <div class="kpi-stat-box-sub" id="cb-mid-sub"></div>
             </div>
-            <!-- Att diff -->
             <div class="kpi-stat-box s-zero" id="cb-att-box">
               <div class="kpi-stat-box-label">Att</div>
               <div class="kpi-stat-box-val" id="cb-att-val">—</div>
@@ -514,7 +471,6 @@
           </div>
         </div>
 
-        <!-- Turnovers -->
         <div id="kpi-turnovers-card">
           <div class="kpi-card-title">Turnovers</div>
           <div id="kpi-turnovers-grid">
@@ -528,10 +484,8 @@
             </div>
           </div>
         </div>
+      </div>
 
-      </div><!-- end kpi-row1 -->
-
-      <!-- Row 2 — Puck Out Picture (unchanged) -->
       <div class="kpi-row2col">
         <div class="kpi-card">
           <div class="kpi-card-title">Puck Out Picture</div>
@@ -549,7 +503,6 @@
           </div>
         </div>
 
-        <!-- Row 2 col 2 — Score Summary (unchanged) -->
         <div class="kpi-card">
           <div class="kpi-card-title">Score Summary</div>
           <div class="kpi-2box">
@@ -569,7 +522,6 @@
         </div>
       </div>
 
-      <!-- Row 3 — Shooting + Score per Qtr + Run thru 65 -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:7px">
 
         <div class="kpi-card">
@@ -615,21 +567,8 @@
 
       </div>
 
-    </div><!-- end tab-kpi -->
-
-    <!-- HALFTIME REPORT TAB -->
-    <div class="tab-content" id="tab-ht">
-      <div id="ht-table-wrap" style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-        <div id="ht-header" style="display:grid;grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.9fr;background:var(--surface2);border-bottom:1px solid var(--border);">
-          <div class="ht-th" style="text-align:left">Event</div>
-          <div class="ht-th">Tgt/Qtr</div>
-          <div class="ht-th">Qtr 1</div>
-          <div class="ht-th">Qtr 2</div>
-          <div class="ht-th">Half Total</div>
-        </div>
-        <div id="ht-tbody"></div>
-      </div>
     </div>
+
     <div class="tab-content" id="tab-raw">
       <table id="raw-table">
         <thead><tr><th>Event</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Total</th></tr></thead>
@@ -678,15 +617,11 @@ let meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
 let pendingDirection='';
 let kpiQ='total';
 
-// ── PITCH THIRD RESOLVER ─────────────────────────────────────────
-function getPitchThird(location, quarter, direction) {
-  if (location === 'Centre') return 'Middle';
-  const ltr = direction === 'Left to Right';
-  const fh  = quarter <= 2;
-  if (ltr) return fh ? (location === 'Left' ? 'Defensive' : 'Attacking')
-                     : (location === 'Left' ? 'Attacking'  : 'Defensive');
-  else     return fh ? (location === 'Left' ? 'Attacking'  : 'Defensive')
-                     : (location === 'Left' ? 'Defensive'  : 'Attacking');
+function getPitchThird(location,quarter,direction){
+  if(location==='Centre')return 'Middle';
+  const ltr=direction==='Left to Right',fh=quarter<=2;
+  if(ltr)return fh?(location==='Left'?'Defensive':'Attacking'):(location==='Left'?'Attacking':'Defensive');
+  else   return fh?(location==='Left'?'Attacking':'Defensive'):(location==='Left'?'Defensive':'Attacking');
 }
 
 function init(){
@@ -736,7 +671,6 @@ function refreshBanner(){
   el.style.color=dir?'var(--amber)':'var(--text-dim)';
 }
 
-// ── DIRECTION MODAL ──────────────────────────────────────────────
 function showDirectionModal(){
   pendingDirection='';
   document.getElementById('dir-ltr').classList.remove('selected');
@@ -757,15 +691,13 @@ function confirmDirection(){
   meta.directionFirstHalf=pendingDirection;
   localStorage.setItem(META_KEY,JSON.stringify(meta));
   document.getElementById('direction-overlay').classList.remove('visible');
-  refreshBanner();
-  doStartGame();
+  refreshBanner();doStartGame();
 }
 function skipDirection(){
   document.getElementById('direction-overlay').classList.remove('visible');
   doStartGame();
 }
 
-// ── GRID TOUCH ───────────────────────────────────────────────────
 function getZone(btn,clientX){const r=btn.getBoundingClientRect(),rel=(clientX-r.left)/r.width;return rel<0.333?'Left':rel<0.667?'Centre':'Right';}
 function getOvIdx(zone){return zone==='Left'?0:zone==='Centre'?1:2;}
 function clearZones(btn){btn.querySelectorAll('.zone-overlay,.zone-lbl').forEach(el=>el.classList.remove('active'));}
@@ -829,16 +761,11 @@ function showLastEvent(kpi,zone,btn){
   const colour=KPI_COLOUR[kpi]||'#6b7a99';
   const short=kpi.replace(' – ',' ').replace('Point – ','Pt ').replace('Miss – ','Ms ');
   el.innerHTML=`<span class="le-dot" style="background:${colour}"></span>${short} · ${LOC_SYMBOL[zone]}`;
-  el.classList.remove('flash-event');
-  void el.offsetWidth;
+  el.classList.remove('flash-event');void el.offsetWidth;
   el.classList.add('show','flash-event');
 }
-function clearLastEvent(){
-  const el=document.getElementById('last-event');
-  el.classList.remove('show','flash-event');
-}
+function clearLastEvent(){const el=document.getElementById('last-event');el.classList.remove('show','flash-event');}
 
-// ── CLOCK ────────────────────────────────────────────────────────
 function getMatchSeconds(atMs){
   const now=atMs!==undefined?atMs:Date.now();
   if(state.gameFlow==='pre')return 0;
@@ -897,7 +824,6 @@ function updateQtrPills(secs){
   }
 }
 
-// ── GAME FLOW ────────────────────────────────────────────────────
 function advanceGameFlow(){
   ({
     pre:         doStartGameFlow,
@@ -913,24 +839,10 @@ function doStartGameFlow(){
 }
 let stateSnapshot=null;
 function snapshotState(){stateSnapshot=JSON.parse(JSON.stringify(state));}
-function restoreSnapshot(){
-  if(!stateSnapshot)return;
-  state=JSON.parse(JSON.stringify(stateSnapshot));
-  stateSnapshot=null;
-  saveState();refreshAll();
-}
-function confirmEndFirstHalf(){
-  snapshotState();
-  showConfirm('⏸ End 1st Half','Mark first half as finished and stop the clock?',doEndFirstHalf,false,restoreSnapshot,'↩ Undo');
-}
-function confirmStartSecondHalf(){
-  snapshotState();
-  showConfirm('▶ Start 2nd Half','Start the second half clock now?',doStartSecondHalf,true,restoreSnapshot,'↩ Undo Half');
-}
-function confirmEndGame(){
-  snapshotState();
-  showConfirm('⏹ End Game','Mark match as finished?',doEndGame,false,restoreSnapshot,'↩ Undo');
-}
+function restoreSnapshot(){if(!stateSnapshot)return;state=JSON.parse(JSON.stringify(stateSnapshot));stateSnapshot=null;saveState();refreshAll();}
+function confirmEndFirstHalf(){snapshotState();showConfirm('⏸ End 1st Half','Mark first half as finished and stop the clock?',doEndFirstHalf,false,restoreSnapshot,'↩ Undo');}
+function confirmStartSecondHalf(){snapshotState();showConfirm('▶ Start 2nd Half','Start the second half clock now?',doStartSecondHalf,true,restoreSnapshot,'↩ Undo Half');}
+function confirmEndGame(){snapshotState();showConfirm('⏹ End Game','Mark match as finished?',doEndGame,false,restoreSnapshot,'↩ Undo');}
 function doStartGame(){
   Object.assign(state,{gameFlow:'first_half',firstHalfStart:Date.now(),firstHalfEnd:null,firstHalfPausedMs:0,secondHalfStart:null,secondHalfEnd:null,secondHalfPausedMs:0,pausedAt:null});
   saveState();refreshAll();showToast('🏁 Kick off — 1st Half');
@@ -953,53 +865,21 @@ function doEndGame(){
 function togglePause(){
   if(state.gameFlow!=='first_half'&&state.gameFlow!=='second_half'){showToast('Pause only during active half');return;}
   if(state.pausedAt!==null){
-    // Resuming — no confirm needed
     const d=Date.now()-state.pausedAt;
     state.gameFlow==='first_half'?state.firstHalfPausedMs+=d:state.secondHalfPausedMs+=d;
     state.pausedAt=null;saveState();refreshAll();showToast('▶ Resumed');
   } else {
-    // Pausing — confirm first to avoid accidental mid-game tap
     showConfirm('⏸ Pause Game','Pause the match clock?',doPause,false);
   }
 }
-function doPause(){
-  state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');
-}
+function doPause(){state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');}
 let lpTimer=null;
 function setupFlowLongPress(){
   const btn=document.getElementById('flow-btn');
-  let pressing=false;
-
-  const onStart=e=>{
-    pressing=true;
-    btn.classList.add('long-pressing');
-    lpTimer=setTimeout(()=>{
-      pressing=false;
-      btn.classList.remove('long-pressing');
-      confirmNewGame();
-    },800);
-  };
-
-  const onEnd=e=>{
-    if(!pressing)return;          // long press already fired
-    pressing=false;
-    clearTimeout(lpTimer);
-    btn.classList.remove('long-pressing');
-    advanceGameFlow();
-  };
-
-  const onCancel=e=>{
-    pressing=false;
-    clearTimeout(lpTimer);
-    btn.classList.remove('long-pressing');
-  };
-
-  btn.addEventListener('touchstart', onStart,  {passive:true});
-  btn.addEventListener('touchend',   onEnd,    {passive:true});
-  btn.addEventListener('touchcancel',onCancel, {passive:true});
-  btn.addEventListener('mousedown',  onStart);
-  btn.addEventListener('mouseup',    onEnd);
-  btn.addEventListener('mouseleave', onCancel);
+  const start=()=>{btn.classList.add('long-pressing');lpTimer=setTimeout(()=>{btn.classList.remove('long-pressing');confirmNewGame();},800);};
+  const cancel=()=>{clearTimeout(lpTimer);btn.classList.remove('long-pressing');};
+  btn.addEventListener('touchstart',start,{passive:true});btn.addEventListener('touchend',cancel,{passive:true});btn.addEventListener('touchcancel',cancel,{passive:true});
+  btn.addEventListener('mousedown',start);btn.addEventListener('mouseup',cancel);btn.addEventListener('mouseleave',cancel);
 }
 function confirmNewGame(){showConfirm('⊕ New Game','Clear all match data and metadata?',doNewGame,false);}
 function doNewGame(){
@@ -1013,7 +893,6 @@ function doNewGame(){
   refreshBanner();refreshAll();
 }
 
-// ── CONFIRM DIALOG ───────────────────────────────────────────────
 function showConfirm(title,msg,action,isPos,undoAction,undoLabel){
   document.getElementById('confirm-title').textContent=title;
   document.getElementById('confirm-msg').textContent=msg;
@@ -1021,21 +900,14 @@ function showConfirm(title,msg,action,isPos,undoAction,undoLabel){
   yesBtn.className=isPos?'positive':'';
   pendingAction=action;
   const undoBtn=document.getElementById('confirm-undo');
-  if(undoAction){
-    pendingUndoAction=undoAction;
-    undoBtn.textContent=undoLabel||'↩ Undo';
-    undoBtn.style.display='';
-  } else {
-    pendingUndoAction=null;
-    undoBtn.style.display='none';
-  }
+  if(undoAction){pendingUndoAction=undoAction;undoBtn.textContent=undoLabel||'↩ Undo';undoBtn.style.display='';}
+  else{pendingUndoAction=null;undoBtn.style.display='none';}
   document.getElementById('confirm-overlay').classList.add('visible');
 }
 function confirmAction(){closeConfirm();if(pendingAction){pendingAction();pendingAction=null;}}
 function confirmUndoAction(){closeConfirm();if(pendingUndoAction){pendingUndoAction();pendingUndoAction=null;}}
 function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('visible');}
 
-// ── REFRESH ──────────────────────────────────────────────────────
 function refreshAll(){refreshBanner();refreshCounts();refreshScoreboard();refreshFlowBtn();refreshPauseBtn();refreshClockDisplay();}
 function refreshFlowBtn(){
   const btn=document.getElementById('flow-btn');
@@ -1082,7 +954,6 @@ function triggerRipple(btn,evt){
 }
 function triggerScale(btn){btn.style.transform='scale(0.90)';setTimeout(()=>{btn.style.transform='scale(1.04)';},100);setTimeout(()=>{btn.style.transform='';},220);if(navigator.vibrate)navigator.vibrate(18);}
 
-// ── STATS MODAL ──────────────────────────────────────────────────
 function setKpiQ(q){
   kpiQ=q;
   document.querySelectorAll('.kqi-qbtn').forEach(b=>b.classList.toggle('active',b.dataset.q===q));
@@ -1093,7 +964,6 @@ function switchTab(tab){
   document.querySelectorAll('.modal-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.toggle('active',t.id===`tab-${tab}`));
   if(tab==='kpi')renderKpiTab();
-  if(tab==='ht')renderHalftimeTab();
 }
 
 function kpiCounts(q){
@@ -1123,99 +993,76 @@ function kpiCounts(q){
 }
 
 function kpiContested(q){
-  // Contested ball totals including forced turnovers, broken down by pitch third
-  const qs  = q==='total'?[1,2,3,4]:[parseInt(q)];
-  const dir = meta.directionFirstHalf||'Left to Right';
-  const zW  = {Defensive:0,Middle:0,Attacking:0};
-  const zL  = {Defensive:0,Middle:0,Attacking:0};
-  let wins=0, losses=0;
-
+  const qs=q==='total'?[1,2,3,4]:[parseInt(q)];
+  const dir=meta.directionFirstHalf||'Left to Right';
+  const zW={Defensive:0,Middle:0,Attacking:0};
+  const zL={Defensive:0,Middle:0,Attacking:0};
+  let wins=0,losses=0;
   eventLog.forEach(e=>{
     if(!qs.includes(e.quarter))return;
     const third=getPitchThird(e.location||'Centre',e.quarter,dir);
-    if(e.kpi==='Contested Win'||e.kpi==='T/O Forced (Us)'){
-      wins++;zW[third]++;
-    } else if(e.kpi==='Contested Loss'||e.kpi==='Unforced Loss'){
-      losses++;zL[third]++;
-    }
+    if(e.kpi==='Contested Win'||e.kpi==='T/O Forced (Us)'){wins++;zW[third]++;}
+    else if(e.kpi==='Contested Loss'||e.kpi==='Unforced Loss'){losses++;zL[third]++;}
   });
-
-  const total  = wins+losses;
-  const winPct = total===0?null:Math.round((wins/total)*100);
+  const total=wins+losses,winPct=total===0?null:Math.round((wins/total)*100);
   return {wins,losses,total,winPct,zW,zL};
 }
 
 function kpiDerive(r){
   const pct=(n,d)=>d===0?null:Math.round((n/d)*100);
-  const ourPOTotal    =r.ourPOWin+r.ourPOLoss;
-  const ourPORate     =pct(r.ourPOWin,ourPOTotal);
-  const theirPOTotal  =r.theirPOWin+r.theirPOLoss;
-  const theirWinRate  =pct(r.theirPOWin,theirPOTotal);
-  const shotsUs       =r.shotPlayScoreUs+r.shotPlayMissUs+r.shotFreeScoreUs+r.shotFreeMissUs+r.goalUs;
-  const shotsThem     =r.shotPlayScoreThem+r.shotPlayMissThem+r.shotFreeScoreThem+r.shotFreeMissThem+r.goalThem;
-  const scoresUs      =r.shotPlayScoreUs+r.shotFreeScoreUs+r.goalUs;
-  const scoresThem    =r.shotPlayScoreThem+r.shotFreeScoreThem+r.goalThem;
-  const convUs        =pct(scoresUs,shotsUs);
-  const convThem      =pct(scoresThem,shotsThem);
-  return {ourPOTotal,ourPORate,theirPOTotal,theirWinRate,
-          shotsUs,shotsThem,scoresUs,scoresThem,convUs,convThem};
+  const ourPOTotal=r.ourPOWin+r.ourPOLoss,ourPORate=pct(r.ourPOWin,ourPOTotal);
+  const theirPOTotal=r.theirPOWin+r.theirPOLoss,theirWinRate=pct(r.theirPOWin,theirPOTotal);
+  const shotsUs=r.shotPlayScoreUs+r.shotPlayMissUs+r.shotFreeScoreUs+r.shotFreeMissUs+r.goalUs;
+  const shotsThem=r.shotPlayScoreThem+r.shotPlayMissThem+r.shotFreeScoreThem+r.shotFreeMissThem+r.goalThem;
+  const scoresUs=r.shotPlayScoreUs+r.shotFreeScoreUs+r.goalUs;
+  const scoresThem=r.shotPlayScoreThem+r.shotFreeScoreThem+r.goalThem;
+  const convUs=pct(scoresUs,shotsUs),convThem=pct(scoresThem,shotsThem);
+  return {ourPOTotal,ourPORate,theirPOTotal,theirWinRate,shotsUs,shotsThem,scoresUs,scoresThem,convUs,convThem};
 }
 
-function pctClass(v,threshold){
-  if(v===null||v===threshold)return 'kpi-zero';
-  return v>threshold?'kpi-pos':'kpi-neg';
-}
+function pctClass(v,threshold){if(v===null||v===threshold)return 'kpi-zero';return v>threshold?'kpi-pos':'kpi-neg';}
 function fmtPct(v){return v===null?'—':`${v}%`;}
 function fmtWL(w,l){return `${w}W · ${l}L`;}
 
-// Set class and value on a .kpi-stat-box
-function setStatBox(id, val, sub, isWinPct){
-  const box = document.getElementById(id);
-  const valEl = document.getElementById(id.replace('-box','-val'));
-  const subEl = document.getElementById(id.replace('-box','-sub'));
-  // Determine state class
-  let cls = 's-zero';
-  if(isWinPct){
-    if(val!==null){ cls = val>50?'s-pos':val<50?'s-neg':'s-zero'; }
-  } else {
-    if(val!==null&&val!==0){ cls = val>0?'s-pos':'s-neg'; }
-  }
+function setStatBox(id,val,sub,isWinPct){
+  const box=document.getElementById(id);
+  const valEl=document.getElementById(id.replace('-box','-val'));
+  const subEl=document.getElementById(id.replace('-box','-sub'));
+  let cls='s-zero';
+  if(isWinPct){if(val!==null){cls=val>50?'s-pos':val<50?'s-neg':'s-zero';}}
+  else{if(val!==null&&val!==0){cls=val>0?'s-pos':'s-neg';}}
   box.className='kpi-stat-box '+cls;
-  if(isWinPct){
-    valEl.textContent = val===null?'—':`${val}%`;
-  } else {
-    valEl.textContent = val===null?'—':(val>0?`+${val}`:`${val}`);
-  }
-  if(subEl) subEl.textContent = sub||'';
+  if(isWinPct){valEl.textContent=val===null?'—':`${val}%`;}
+  else{valEl.textContent=val===null?'—':(val>0?`+${val}`:`${val}`);}
+  if(subEl)subEl.textContent=sub||'';
 }
 
 function renderKpiTab(){
-  const r  = kpiCounts(kpiQ);
-  const cb = kpiContested(kpiQ);
-  const d  = kpiDerive(r);
+  const r=kpiCounts(kpiQ);
+  const cb=kpiContested(kpiQ);
+  const d=kpiDerive(r);
 
-  // ── Contested Ball ──
-  setStatBox('cb-winpct-box', cb.winPct, fmtWL(cb.wins,cb.losses), true);
-  setStatBox('cb-def-box', cb.zW.Defensive-cb.zL.Defensive, fmtWL(cb.zW.Defensive,cb.zL.Defensive), false);
-  setStatBox('cb-mid-box', cb.zW.Middle-cb.zL.Middle,       fmtWL(cb.zW.Middle,cb.zL.Middle),       false);
-  setStatBox('cb-att-box', cb.zW.Attacking-cb.zL.Attacking, fmtWL(cb.zW.Attacking,cb.zL.Attacking), false);
+  // Contested Ball
+  setStatBox('cb-winpct-box',cb.winPct,fmtWL(cb.wins,cb.losses),true);
+  setStatBox('cb-def-box',cb.zW.Defensive-cb.zL.Defensive,fmtWL(cb.zW.Defensive,cb.zL.Defensive),false);
+  setStatBox('cb-mid-box',cb.zW.Middle-cb.zL.Middle,fmtWL(cb.zW.Middle,cb.zL.Middle),false);
+  setStatBox('cb-att-box',cb.zW.Attacking-cb.zL.Attacking,fmtWL(cb.zW.Attacking,cb.zL.Attacking),false);
 
-  // ── Turnovers ──
-  document.getElementById('to-forced-val').textContent   = r.forcedUs;
-  document.getElementById('to-unforced-val').textContent = r.unforcedLoss;
+  // Turnovers
+  document.getElementById('to-forced-val').textContent=r.forcedUs;
+  document.getElementById('to-unforced-val').textContent=r.unforcedLoss;
 
-  // ── Puck Out Picture ──
+  // Puck Out Picture
   const bop=document.getElementById('box-our-po');
   bop.className='kpi-box '+pctClass(d.ourPORate,70);
   document.getElementById('box-our-po-val').textContent=fmtPct(d.ourPORate);
   document.getElementById('box-our-po-sub').textContent=fmtWL(r.ourPOWin,r.ourPOLoss);
-
   const btp=document.getElementById('box-their-po');
   btp.className='kpi-box '+pctClass(d.theirWinRate,50);
   document.getElementById('box-their-po-val').textContent=fmtPct(d.theirWinRate);
   document.getElementById('box-their-po-sub').textContent=fmtWL(r.theirPOWin,r.theirPOLoss);
 
-  // ── Score Summary ──
+  // Score Summary
   const gaaFmt=(g,p)=>`${g}-${p.toString().padStart(2,'0')}`;
   document.getElementById('box-score-us-gaa').textContent  =gaaFmt(r.goalUs,r.shotPlayScoreUs+r.shotFreeScoreUs);
   document.getElementById('box-score-them-gaa').textContent=gaaFmt(r.goalThem,r.shotPlayScoreThem+r.shotFreeScoreThem);
@@ -1226,140 +1073,57 @@ function renderKpiTab(){
   document.getElementById('box-score-them-play').textContent=`Play: ${playThem}`;
   document.getElementById('box-score-them-free').textContent=`Free: ${r.shotFreeScoreThem}p`;
 
-  // ── Shooting ──
+  // Shooting
   document.getElementById('shoot-us-play').textContent  =`Play: ${r.shotPlayScoreUs}✓ / ${r.shotPlayMissUs}✗`;
   document.getElementById('shoot-us-free').textContent  =`Free: ${r.shotFreeScoreUs}✓ / ${r.shotFreeMissUs}✗`;
   document.getElementById('shoot-us-total').textContent =`${d.shotsUs} shots`;
   document.getElementById('shoot-us-conv').textContent  =fmtPct(d.convUs);
   document.getElementById('shoot-us-conv').style.color  =d.convUs===null?'var(--text-dim)':d.convUs>=70?'var(--green)':'var(--red)';
-
   document.getElementById('shoot-them-play').textContent  =`Play: ${r.shotPlayScoreThem}✓ / ${r.shotPlayMissThem}✗`;
   document.getElementById('shoot-them-free').textContent  =`Free: ${r.shotFreeScoreThem}✓ / ${r.shotFreeMissThem}✗`;
   document.getElementById('shoot-them-total').textContent =`${d.shotsThem} shots`;
   document.getElementById('shoot-them-conv').textContent  =fmtPct(d.convThem);
   document.getElementById('shoot-them-conv').style.color  ='var(--text-dim)';
 
-  // ── Score per quarter ──
-  const isTotal = kpiQ === 'total';
-  const qs2 = isTotal ? [1,2,3,4] : [parseInt(kpiQ)];
-  const qLabel = isTotal ? 'Match' : `Q${kpiQ}`;
-  const usThreshold   = isTotal ? null : 5;
-  const themThreshold = isTotal ? null : 4;
+  // ── Score count per quarter (count of scoring actions, not points total) ──
+  const isTotal=kpiQ==='total';
+  const qs2=isTotal?[1,2,3,4]:[parseInt(kpiQ)];
+  const qLabel=isTotal?'Match':`Q${kpiQ}`;
 
-  const scoreUsQtr = eventLog.filter(e =>
-    (e.kpi==='Goal – Us'||e.kpi==='Point – Play (Us)'||e.kpi==='Point – Free (Us)') && qs2.includes(e.quarter)
+  // Count each goal and each point as 1 score
+  const scoreUsQtr=eventLog.filter(e=>
+    (e.kpi==='Goal – Us'||e.kpi==='Point – Play (Us)'||e.kpi==='Point – Free (Us)')&&qs2.includes(e.quarter)
   ).length;
-  const scoreThemQtr = eventLog.filter(e =>
-    (e.kpi==='Goal – Them'||e.kpi==='Point – Play (Them)'||e.kpi==='Point – Free (Them)') && qs2.includes(e.quarter)
+  const scoreThemQtr=eventLog.filter(e=>
+    (e.kpi==='Goal – Them'||e.kpi==='Point – Play (Them)'||e.kpi==='Point – Free (Them)')&&qs2.includes(e.quarter)
   ).length;
-  const runThru65Qtr = eventLog.filter(e => e.kpi==='Run thru 65' && qs2.includes(e.quarter)).length;
+  const runThru65Qtr=eventLog.filter(e=>e.kpi==='Run thru 65'&&qs2.includes(e.quarter)).length;
 
-  const usColor   = isTotal ? 'var(--text-dim)' : scoreUsQtr   >= 5 ? 'var(--green)' : 'var(--red)';
-  const themColor = isTotal ? 'var(--text-dim)' : scoreThemQtr <= 4 ? 'var(--green)' : 'var(--red)';
-  const usBg      = isTotal ? 'rgba(107,122,153,0.08)' : scoreUsQtr   >= 5 ? 'rgba(0,230,118,0.08)' : 'rgba(255,61,90,0.08)';
-  const themBg    = isTotal ? 'rgba(107,122,153,0.08)' : scoreThemQtr <= 4 ? 'rgba(0,230,118,0.08)' : 'rgba(255,61,90,0.08)';
-  const usBorder  = isTotal ? 'rgba(107,122,153,0.2)'  : scoreUsQtr   >= 5 ? 'rgba(0,230,118,0.25)' : 'rgba(255,61,90,0.25)';
-  const themBorder= isTotal ? 'rgba(107,122,153,0.2)'  : scoreThemQtr <= 4 ? 'rgba(0,230,118,0.25)' : 'rgba(255,61,90,0.25)';
+  const usColor  =isTotal?'var(--text-dim)':scoreUsQtr  >=5?'var(--green)':'var(--red)';
+  const themColor=isTotal?'var(--text-dim)':scoreThemQtr<=4?'var(--green)':'var(--red)';
+  const usBg     =isTotal?'rgba(107,122,153,0.08)':scoreUsQtr  >=5?'rgba(0,230,118,0.08)':'rgba(255,61,90,0.08)';
+  const themBg   =isTotal?'rgba(107,122,153,0.08)':scoreThemQtr<=4?'rgba(0,230,118,0.08)':'rgba(255,61,90,0.08)';
+  const usBorder =isTotal?'rgba(107,122,153,0.2)' :scoreUsQtr  >=5?'rgba(0,230,118,0.25)':'rgba(255,61,90,0.25)';
+  const themBorder=isTotal?'rgba(107,122,153,0.2)':scoreThemQtr<=4?'rgba(0,230,118,0.25)':'rgba(255,61,90,0.25)';
 
-  const scoreUsBox   = document.getElementById('score-qtr-us');
-  const scoreThemBox = document.getElementById('score-qtr-them');
-  scoreUsBox.style.background   = usBg;   scoreUsBox.style.borderColor   = usBorder;
-  scoreThemBox.style.background = themBg; scoreThemBox.style.borderColor = themBorder;
-  document.getElementById('score-qtr-us-val').style.color   = usColor;
-  document.getElementById('score-qtr-them-val').style.color = themColor;
-  document.getElementById('score-qtr-us-val').textContent   = scoreUsQtr;
-  document.getElementById('score-qtr-them-val').textContent = scoreThemQtr;
-  document.getElementById('score-qtr-us-lbl').textContent   = `Score ${qLabel} (Us)`;
-  document.getElementById('score-qtr-them-lbl').textContent = `Score ${qLabel} (Them)`;
-  document.getElementById('score-qtr-us-target').textContent   = isTotal ? '' : 'target ≥5';
-  document.getElementById('score-qtr-them-target').textContent = isTotal ? '' : 'target ≤4';
-  document.getElementById('run-thru-65-val').textContent = runThru65Qtr;
+  const scoreUsBox  =document.getElementById('score-qtr-us');
+  const scoreThemBox=document.getElementById('score-qtr-them');
+  scoreUsBox.style.background   =usBg;   scoreUsBox.style.borderColor   =usBorder;
+  scoreThemBox.style.background =themBg; scoreThemBox.style.borderColor =themBorder;
+  document.getElementById('score-qtr-us-val').style.color  =usColor;
+  document.getElementById('score-qtr-them-val').style.color=themColor;
+  document.getElementById('score-qtr-us-val').textContent  =scoreUsQtr;
+  document.getElementById('score-qtr-them-val').textContent=scoreThemQtr;
+  document.getElementById('score-qtr-us-lbl').textContent  =`Score ${qLabel} (Us)`;
+  document.getElementById('score-qtr-them-lbl').textContent=`Score ${qLabel} (Them)`;
+  document.getElementById('score-qtr-us-target').textContent  =isTotal?'':'target ≥5';
+  document.getElementById('score-qtr-them-target').textContent=isTotal?'':'target ≤4';
+  document.getElementById('run-thru-65-val').textContent=runThru65Qtr;
 
-  // Keep quarter selector in sync
   document.querySelectorAll('.kqi-qbtn').forEach(b=>b.classList.toggle('active',b.dataset.q===kpiQ));
 }
 
-// ── HALFTIME REPORT ──────────────────────────────────────────────
-const HT_ROWS=[
-  {label:'Our Scores',           tgt:'≥5',   field:'ourScores',     type:'count-pos', threshold:5,  htThreshold:10},
-  {label:'Their Scores',         tgt:'≤4',   field:'themScores',    type:'count-neg', threshold:4,  htThreshold:8 },
-  {label:'Our Shots',            tgt:'—',    field:'ourShots',      type:'neutral'},
-
-  {label:'Our Shooting Eff %',   tgt:'≥70%', field:'ourShootEff',   type:'pct-pos',   threshold:70},
-  {label:'Our PO Retention %',   tgt:'≥70%', field:'ourPORet',      type:'pct-pos',   threshold:70},
-  {label:'Their PO We Win %',    tgt:'≥50%', field:'theirPOWinPct', type:'pct-pos',   threshold:50},
-  {label:'Contested Ball Win %', tgt:'≥50%', field:'cbPct',         type:'pct-pos',   threshold:50},
-  {label:'Runs Thru 65',         tgt:'—',    field:'run65',         type:'neutral'},
-];
-const HT_PCT_FIELDS=new Set(['ourShootEff','ourPORet','theirPOWinPct','cbPct','defPct','midPct','attPct']);
-
-function calcHtRow(qs){
-  const c=k=>eventLog.filter(e=>e.kpi===k&&qs.includes(e.quarter)).length;
-  const pct=(n,d)=>d===0?null:Math.round((n/d)*100);
-  const dir=meta.directionFirstHalf||'Left to Right';
-
-  const ourScores  =c('Goal – Us')+c('Point – Play (Us)')+c('Point – Free (Us)');
-  const themScores =c('Goal – Them')+c('Point – Play (Them)')+c('Point – Free (Them)');
-  const ourShots   =ourScores+c('Miss – Play (Us)')+c('Miss – Free (Us)');
-  const themShots  =themScores+c('Miss – Play (Them)')+c('Miss – Free (Them)');
-  const ourShootEff=pct(ourScores,ourShots);
-
-  const ourPOWin=c('Our PO – We Win'),ourPOLoss=c('Our PO – We Lose');
-  const ourPORet=pct(ourPOWin,ourPOWin+ourPOLoss);
-
-  const theirPOWin=c('Their PO – We Win'),theirPOLoss=c('Their PO – We Lose');
-  const theirPOWinPct=pct(theirPOWin,theirPOWin+theirPOLoss);
-
-  let cbW=0,cbL=0;
-  const zW={Defensive:0,Middle:0,Attacking:0};
-  const zL={Defensive:0,Middle:0,Attacking:0};
-  eventLog.forEach(e=>{
-    if(!qs.includes(e.quarter))return;
-    const t=getPitchThird(e.location||'Centre',e.quarter,dir);
-    if(e.kpi==='Contested Win'||e.kpi==='T/O Forced (Us)'){cbW++;zW[t]++;}
-    else if(e.kpi==='Contested Loss'||e.kpi==='Unforced Loss'){cbL++;zL[t]++;}
-  });
-  const cbPct =pct(cbW,cbW+cbL);
-  const defPct=pct(zW.Defensive,zW.Defensive+zL.Defensive);
-  const midPct=pct(zW.Middle,zW.Middle+zL.Middle);
-  const attPct=pct(zW.Attacking,zW.Attacking+zL.Attacking);
-  const run65 =c('Run thru 65');
-
-  return {ourScores,themScores,ourShots,themShots,ourShootEff,
-          ourPORet,theirPOWinPct,cbPct,defPct,midPct,attPct,run65};
-}
-
-function htValClass(val,type,threshold){
-  if(val===null||type==='neutral')return 'ht-zero';
-  let good=false;
-  if(type==='count-pos')good=val>=threshold;
-  else if(type==='count-neg')good=val<=threshold;
-  else if(type==='pct-pos')good=val>=threshold;
-  return good?'ht-pos':'ht-neg';
-}
-
-function renderHalftimeTab(){
-  const q1=calcHtRow([1]),q2=calcHtRow([2]),ht=calcHtRow([1,2]);
-  const tbody=document.getElementById('ht-tbody');
-  tbody.innerHTML='';
-  HT_ROWS.forEach((row,ri)=>{
-    const v1=q1[row.field],v2=q2[row.field],vHT=ht[row.field];
-    const fmt=v=>v===null?'—':HT_PCT_FIELDS.has(row.field)?`${v}%`:`${v}`;
-    const htThr=row.htThreshold!==undefined?row.htThreshold:row.threshold;
-    const div=document.createElement('div');
-    div.className='ht-row'+(ri%2?' alt':'');
-    div.innerHTML=`
-      <div class="ht-label">${row.label}</div>
-      <div class="ht-tgt">${row.tgt}</div>
-      <div class="ht-cell"><div class="ht-val ${htValClass(v1,row.type,row.threshold)}">${fmt(v1)}</div></div>
-      <div class="ht-cell"><div class="ht-val ${htValClass(v2,row.type,row.threshold)}">${fmt(v2)}</div></div>
-      <div class="ht-cell"><div class="ht-val ${htValClass(vHT,row.type,htThr)}">${fmt(vHT)}</div></div>
-    `;
-    tbody.appendChild(div);
-  });
-}
-
-
+function showDisplay(){
   const raw={};KPI_LIST.forEach(k=>{raw[k]={1:0,2:0,3:0,4:0};});
   eventLog.forEach(e=>{if(raw[e.kpi])raw[e.kpi][e.quarter]++;});
   const c=(kpi,q)=>raw[kpi]?raw[kpi][q]:0;
@@ -1387,11 +1151,9 @@ function renderHalftimeTab(){
   switchTab('kpi');
   document.getElementById('modal-overlay').classList.add('visible');
   renderKpiTab();
-  renderHalftimeTab();
 }
 function hideDisplay(evt){if(evt&&evt.target!==document.getElementById('modal-overlay'))return;document.getElementById('modal-overlay').classList.remove('visible');}
 
-// ── CSV ──────────────────────────────────────────────────────────
 function exportCSV(){
   if(eventLog.length===0){showToast('No events logged yet');return;}
   const lines=[];
