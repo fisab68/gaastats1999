@@ -247,30 +247,40 @@
   .kqi-qbtn { flex:1; padding:7px 4px; border-radius:6px; border:none; font-family:'Inter',sans-serif; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; cursor:pointer; background:transparent; color:var(--text-dim); transition:all 0.15s; }
   .kqi-qbtn.active { background:var(--green); color:#000; box-shadow:0 0 10px rgba(0,230,118,0.3); }
 
-  #kpi-row1 { border-radius:var(--radius); padding:10px 12px; background:linear-gradient(135deg,rgba(26,42,26,0.8),rgba(10,20,12,0.9)); border:1px solid rgba(0,230,118,0.15); transition:background 0.3s,border-color 0.3s; }
-  #kpi-row1.pos { background:linear-gradient(135deg,rgba(0,80,30,0.45),rgba(0,50,20,0.55)); border-color:rgba(0,230,118,0.35); }
-  #kpi-row1.neg { background:linear-gradient(135deg,rgba(80,0,15,0.45),rgba(50,0,10,0.55)); border-color:rgba(255,61,90,0.35); }
-  #kpi-poss-header { display:flex; align-items:baseline; gap:12px; margin-bottom:8px; }
-  #kpi-poss-left { display:flex; align-items:baseline; gap:10px; flex:1; min-width:0; }
-  .kpi-section-label { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; }
-  .kpi-headline { font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1; letter-spacing:2px; }
-  .kpi-headline.pos { color:var(--green); }
-  .kpi-headline.neg { color:var(--red); }
-  .kpi-headline.zero { color:var(--text-dim); }
-  .kpi-subtitle { font-size:10px; font-weight:600; color:var(--text-dim); }
-  #kpi-poss-badges { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; }
-  .kpi-badge { border-radius:8px; padding:7px 6px; text-align:center; background:rgba(107,122,153,0.12); border:1px solid rgba(107,122,153,0.2); transition:background 0.2s,border-color 0.2s; }
-  .kpi-badge.pos { background:rgba(0,230,118,0.15); border-color:rgba(0,230,118,0.3); }
-  .kpi-badge.neg { background:rgba(255,61,90,0.15); border-color:rgba(255,61,90,0.3); }
-  .kpi-badge-val { font-family:'Bebas Neue',sans-serif; font-size:26px; line-height:1; color:var(--text); }
-  .kpi-badge.pos .kpi-badge-val { color:var(--green); }
-  .kpi-badge.neg .kpi-badge-val { color:var(--red); }
-  .kpi-badge-lbl { font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--text-dim); margin-top:1px; }
+  /* Row 1 — Contested Ball + Turnovers side by side */
+  #kpi-row1 { display:grid; grid-template-columns:3fr 1fr; gap:8px; }
+
+  /* Contested Ball card */
+  #kpi-contested-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; }
+  #kpi-contested-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+
+  /* Turnovers card */
+  #kpi-turnovers-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; display:flex; flex-direction:column; }
+  #kpi-turnovers-grid { display:flex; flex-direction:column; gap:6px; flex:1; }
+
+  /* Shared stat box */
+  .kpi-stat-box { border-radius:var(--radius-sm); padding:10px 8px; text-align:center; border:1.5px solid; display:flex; flex-direction:column; justify-content:center; }
+  .kpi-stat-box-label { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-dim); margin-bottom:5px; }
+  .kpi-stat-box-val { font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1; }
+  .kpi-stat-box-sub { font-size:11px; color:var(--text-dim); margin-top:6px; }
+
+  /* Neutral (Turnovers) */
+  .kpi-stat-box.neutral { background:rgba(107,122,153,0.08); border-color:rgba(107,122,153,0.2); }
+  .kpi-stat-box.neutral .kpi-stat-box-val { color:var(--text); }
+
+  /* Pos / Neg / Zero for contested boxes */
+  .kpi-stat-box.s-pos  { background:rgba(0,230,118,0.12);  border-color:rgba(0,230,118,0.3); }
+  .kpi-stat-box.s-neg  { background:rgba(255,61,90,0.12);  border-color:rgba(255,61,90,0.3); }
+  .kpi-stat-box.s-zero { background:rgba(107,122,153,0.08); border-color:rgba(107,122,153,0.2); }
+  .kpi-stat-box.s-pos  .kpi-stat-box-val { color:var(--green); }
+  .kpi-stat-box.s-neg  .kpi-stat-box-val { color:var(--red); }
+  .kpi-stat-box.s-zero .kpi-stat-box-val { color:var(--text-dim); }
+
+  .kpi-card-title { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
 
   .kpi-row2col { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .kpi-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:8px 10px; }
   .kpi-card-full { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:8px 10px; }
-  .kpi-card-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin-bottom:6px; }
   .kpi-2box { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
   .kpi-box { background:var(--surface); border-radius:var(--radius-sm); padding:7px 8px; text-align:center; border:1px solid var(--border); transition:background 0.2s,border-color 0.2s; }
   .kpi-box.kpi-pos  { background:rgba(0,80,30,0.35);  border-color:rgba(0,230,118,0.3); }
@@ -401,12 +411,12 @@
     <button class="kpi-btn cat-red"    data-kpi="Their PO – We Lose"> <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Their PO We Lose</span> <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn blank" aria-hidden="true"></button>
     <button class="kpi-btn cat-blue"   data-kpi="T/O Forced (Us)">    <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">T/O Forced (Us)</span>    <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
+    <button class="kpi-btn cat-grey"   data-kpi="Unforced Loss">      <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Unforced Loss</span>      <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-grey"   data-kpi="T/O Forced (Them)">  <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">T/O Forced (Them)</span>  <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
+    <button class="kpi-btn cat-blue"   data-kpi="Unforced Win">       <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Unforced Them</span>       <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
+    <button class="kpi-btn cat-yellow" data-kpi="Run thru 65">        <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Run thru 65</span>        <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-blue"   data-kpi="Contested Win">      <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Contested Win</span>      <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-grey"   data-kpi="Contested Loss">     <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Contested Loss</span>     <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
-    <button class="kpi-btn cat-yellow" data-kpi="Run thru 65">        <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Run thru 65</span>        <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
-    <button class="kpi-btn cat-blue"   data-kpi="Unforced Win">       <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Unforced Win</span>       <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
-    <button class="kpi-btn cat-grey"   data-kpi="Unforced Loss">      <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Unforced Loss</span>      <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-purple" data-kpi="Free Win">           <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Free Win</span>           <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-grey"   data-kpi="Free Lost">          <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Free Lost</span>          <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
     <button class="kpi-btn cat-red"    data-kpi="Card for Us">        <div class="zone-overlay zl"></div><div class="zone-overlay zm"></div><div class="zone-overlay zr"></div><span class="kpi-count">0</span><span class="kpi-label">Card for Us</span>        <div class="zone-labels"><span class="zone-lbl">◄L</span><span class="zone-lbl">●</span><span class="zone-lbl">R►</span></div><div class="loc-badge"></div></button>
@@ -455,50 +465,59 @@
         <button class="kqi-qbtn" data-q="4" onclick="setKpiQ('4')">QTR4</button>
       </div>
 
-      <!-- Row 1 — Possession Differential -->
+      <!-- Row 1 — Contested Ball + Turnovers -->
       <div id="kpi-row1">
-        <div id="kpi-poss-header">
-          <div id="kpi-poss-left">
-            <div class="kpi-section-label">Poss. Diff</div>
-            <div id="kpi-overall-diff" class="kpi-headline zero">0</div>
-          </div>
-          <div id="kpi-poss-subtitle" class="kpi-subtitle">No data yet</div>
-        </div>
-        <div id="kpi-poss-badges">
-          <div class="kpi-badge" id="badge-forced">
-            <div class="kpi-badge-val" id="badge-forced-val">0</div>
-            <div class="kpi-badge-lbl">Forced T/O</div>
-          </div>
-          <div class="kpi-badge" id="badge-unforced">
-            <div class="kpi-badge-val" id="badge-unforced-val">0</div>
-            <div class="kpi-badge-lbl">Unforced T/O</div>
-          </div>
-          <div class="kpi-badge" id="badge-cont">
-            <div class="kpi-badge-val" id="badge-cont-val">0</div>
-            <div class="kpi-badge-lbl">Contested</div>
-          </div>
-          <div class="kpi-badge" id="badge-po">
-            <div class="kpi-badge-val" id="badge-po-val">0</div>
-            <div class="kpi-badge-lbl">Restarts</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Row 2 — Contested Ball | Puck Out Picture -->
-      <div class="kpi-row2col">
-        <div class="kpi-card">
+        <!-- Contested Ball -->
+        <div id="kpi-contested-card">
           <div class="kpi-card-title">Contested Ball</div>
-          <div class="kpi-2box">
-            <div class="kpi-box kpi-zero" id="box-cont-diff">
-              <div class="kpi-box-val" id="box-cont-diff-val">—</div>
-              <div class="kpi-box-sub" id="box-cont-diff-sub"></div>
+          <div id="kpi-contested-grid">
+            <!-- Win % -->
+            <div class="kpi-stat-box s-zero" id="cb-winpct-box">
+              <div class="kpi-stat-box-label">Win %</div>
+              <div class="kpi-stat-box-val" id="cb-winpct-val">—</div>
+              <div class="kpi-stat-box-sub" id="cb-winpct-sub"></div>
             </div>
-            <div class="kpi-box kpi-zero" id="box-cont-rate">
-              <div class="kpi-box-val" id="box-cont-rate-val">—</div>
-              <div class="kpi-box-sub" id="box-cont-rate-sub"></div>
+            <!-- Def diff -->
+            <div class="kpi-stat-box s-zero" id="cb-def-box">
+              <div class="kpi-stat-box-label">Def</div>
+              <div class="kpi-stat-box-val" id="cb-def-val">—</div>
+              <div class="kpi-stat-box-sub" id="cb-def-sub"></div>
+            </div>
+            <!-- Mid diff -->
+            <div class="kpi-stat-box s-zero" id="cb-mid-box">
+              <div class="kpi-stat-box-label">Mid</div>
+              <div class="kpi-stat-box-val" id="cb-mid-val">—</div>
+              <div class="kpi-stat-box-sub" id="cb-mid-sub"></div>
+            </div>
+            <!-- Att diff -->
+            <div class="kpi-stat-box s-zero" id="cb-att-box">
+              <div class="kpi-stat-box-label">Att</div>
+              <div class="kpi-stat-box-val" id="cb-att-val">—</div>
+              <div class="kpi-stat-box-sub" id="cb-att-sub"></div>
             </div>
           </div>
         </div>
+
+        <!-- Turnovers -->
+        <div id="kpi-turnovers-card">
+          <div class="kpi-card-title">Turnovers</div>
+          <div id="kpi-turnovers-grid">
+            <div class="kpi-stat-box neutral">
+              <div class="kpi-stat-box-label">Forced (Us)</div>
+              <div class="kpi-stat-box-val" id="to-forced-val">0</div>
+            </div>
+            <div class="kpi-stat-box neutral">
+              <div class="kpi-stat-box-label">Unforced Loss</div>
+              <div class="kpi-stat-box-val" id="to-unforced-val">0</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end kpi-row1 -->
+
+      <!-- Row 2 — Puck Out Picture (unchanged) -->
+      <div class="kpi-row2col">
         <div class="kpi-card">
           <div class="kpi-card-title">Puck Out Picture</div>
           <div class="kpi-2box">
@@ -514,10 +533,8 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Row 3 — Score Summary | Shooting -->
-      <div class="kpi-row2col">
+        <!-- Row 2 col 2 — Score Summary (unchanged) -->
         <div class="kpi-card">
           <div class="kpi-card-title">Score Summary</div>
           <div class="kpi-2box">
@@ -535,40 +552,27 @@
             </div>
           </div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-card-title">Shooting</div>
-          <div class="kpi-2box">
-            <div class="kpi-box neutral" id="box-shoot-us">
-              <div class="kpi-box-label">Us</div>
-              <div class="kpi-shoot-row" id="shoot-us-play"></div>
-              <div class="kpi-shoot-row" id="shoot-us-free"></div>
-              <div class="kpi-shoot-divider"></div>
-              <div class="kpi-box-sub" id="shoot-us-total"></div>
-              <div class="kpi-box-val kpi-conv" id="shoot-us-conv">—</div>
-            </div>
-            <div class="kpi-box neutral" id="box-shoot-them">
-              <div class="kpi-box-label">Them</div>
-              <div class="kpi-shoot-row" id="shoot-them-play"></div>
-              <div class="kpi-shoot-row" id="shoot-them-free"></div>
-              <div class="kpi-shoot-divider"></div>
-              <div class="kpi-box-sub" id="shoot-them-total"></div>
-              <div class="kpi-box-val kpi-conv" id="shoot-them-conv">—</div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- Row 4 — Frees -->
+      <!-- Row 3 — Shooting (unchanged) -->
       <div class="kpi-card kpi-card-full">
-        <div class="kpi-card-title">Frees</div>
+        <div class="kpi-card-title">Shooting</div>
         <div class="kpi-2box">
-          <div class="kpi-box neutral" id="box-free-diff">
-            <div class="kpi-box-label">Free Differential</div>
-            <div class="kpi-box-val" id="box-free-diff-val">—</div>
+          <div class="kpi-box neutral" id="box-shoot-us">
+            <div class="kpi-box-label">Us</div>
+            <div class="kpi-shoot-row" id="shoot-us-play"></div>
+            <div class="kpi-shoot-row" id="shoot-us-free"></div>
+            <div class="kpi-shoot-divider"></div>
+            <div class="kpi-box-sub" id="shoot-us-total"></div>
+            <div class="kpi-box-val kpi-conv" id="shoot-us-conv">—</div>
           </div>
-          <div class="kpi-box neutral" id="box-frees-won">
-            <div class="kpi-box-label">Frees Won</div>
-            <div class="kpi-box-sub" id="box-frees-won-txt">—</div>
+          <div class="kpi-box neutral" id="box-shoot-them">
+            <div class="kpi-box-label">Them</div>
+            <div class="kpi-shoot-row" id="shoot-them-play"></div>
+            <div class="kpi-shoot-row" id="shoot-them-free"></div>
+            <div class="kpi-shoot-divider"></div>
+            <div class="kpi-box-sub" id="shoot-them-total"></div>
+            <div class="kpi-box-val kpi-conv" id="shoot-them-conv">—</div>
           </div>
         </div>
       </div>
@@ -623,6 +627,17 @@ let state={gameFlow:'pre',firstHalfStart:null,firstHalfEnd:null,firstHalfPausedM
 let meta={opposition:'',competition:'',venue:'',date:'',directionFirstHalf:''};
 let pendingDirection='';
 let kpiQ='total';
+
+// ── PITCH THIRD RESOLVER ─────────────────────────────────────────
+function getPitchThird(location, quarter, direction) {
+  if (location === 'Centre') return 'Middle';
+  const ltr = direction === 'Left to Right';
+  const fh  = quarter <= 2;
+  if (ltr) return fh ? (location === 'Left' ? 'Defensive' : 'Attacking')
+                     : (location === 'Left' ? 'Attacking'  : 'Defensive');
+  else     return fh ? (location === 'Left' ? 'Attacking'  : 'Defensive')
+                     : (location === 'Left' ? 'Defensive'  : 'Attacking');
+}
 
 function init(){
   const sl=localStorage.getItem(STORAGE_KEY),ss=localStorage.getItem(STATE_KEY),sm=localStorage.getItem(META_KEY);
@@ -888,12 +903,17 @@ function doEndGame(){
 function togglePause(){
   if(state.gameFlow!=='first_half'&&state.gameFlow!=='second_half'){showToast('Pause only during active half');return;}
   if(state.pausedAt!==null){
+    // Resuming — no confirm needed
     const d=Date.now()-state.pausedAt;
     state.gameFlow==='first_half'?state.firstHalfPausedMs+=d:state.secondHalfPausedMs+=d;
     state.pausedAt=null;saveState();refreshAll();showToast('▶ Resumed');
   } else {
-    state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');
+    // Pausing — confirm first to avoid accidental mid-game tap
+    showConfirm('⏸ Pause Game','Pause the match clock?',doPause,false);
   }
+}
+function doPause(){
+  state.pausedAt=Date.now();saveState();refreshAll();showToast('⏸ Game paused');
 }
 let lpTimer=null;
 function setupFlowLongPress(){
@@ -1003,8 +1023,7 @@ function kpiCounts(q){
   return {
     forcedUs:          c('T/O Forced (Us)'),
     forcedThem:        c('T/O Forced (Them)'),
-    unforcedUs:        c('Unforced Loss'),
-    unforcedThem:      c('Unforced Win'),
+    unforcedLoss:      c('Unforced Loss'),
     contestedWin:      c('Contested Win'),
     contestedLoss:     c('Contested Loss'),
     ourPOWin:          c('Our PO – We Win'),
@@ -1021,21 +1040,34 @@ function kpiCounts(q){
     shotFreeScoreThem: c('Point – Free (Them)'),
     shotFreeMissThem:  c('Miss – Free (Them)'),
     goalThem:          c('Goal – Them'),
-    freeWonUs:         c('Free Win'),
-    freeWonThem:       c('Free Lost'),
   };
+}
+
+function kpiContested(q){
+  // Contested ball totals including forced turnovers, broken down by pitch third
+  const qs  = q==='total'?[1,2,3,4]:[parseInt(q)];
+  const dir = meta.directionFirstHalf||'Left to Right';
+  const zW  = {Defensive:0,Middle:0,Attacking:0};
+  const zL  = {Defensive:0,Middle:0,Attacking:0};
+  let wins=0, losses=0;
+
+  eventLog.forEach(e=>{
+    if(!qs.includes(e.quarter))return;
+    const third=getPitchThird(e.location||'Centre',e.quarter,dir);
+    if(e.kpi==='Contested Win'||e.kpi==='T/O Forced (Us)'){
+      wins++;zW[third]++;
+    } else if(e.kpi==='Contested Loss'||e.kpi==='T/O Forced (Them)'){
+      losses++;zL[third]++;
+    }
+  });
+
+  const total  = wins+losses;
+  const winPct = total===0?null:Math.round((wins/total)*100);
+  return {wins,losses,total,winPct,zW,zL};
 }
 
 function kpiDerive(r){
   const pct=(n,d)=>d===0?null:Math.round((n/d)*100);
-  const forcedDiff    =r.forcedUs-r.forcedThem;
-  const unforcedDiff  =r.unforcedThem-r.unforcedUs;
-  const turnoverDiff  =forcedDiff+unforcedDiff;
-  const contestedDiff =r.contestedWin-r.contestedLoss;
-  const contestedTotal=r.contestedWin+r.contestedLoss;
-  const contestedRate =pct(r.contestedWin,contestedTotal);
-  const poDiff        =(r.ourPOWin+r.theirPOWin)-(r.ourPOLoss+r.theirPOLoss);
-  const overallDiff   =turnoverDiff+contestedDiff+poDiff;
   const ourPOTotal    =r.ourPOWin+r.ourPOLoss;
   const ourPORate     =pct(r.ourPOWin,ourPOTotal);
   const theirPOTotal  =r.theirPOWin+r.theirPOLoss;
@@ -1046,62 +1078,54 @@ function kpiDerive(r){
   const scoresThem    =r.shotPlayScoreThem+r.shotFreeScoreThem+r.goalThem;
   const convUs        =pct(scoresUs,shotsUs);
   const convThem      =pct(scoresThem,shotsThem);
-  const freeDiff      =r.freeWonUs-r.freeWonThem;
-  return {forcedDiff,unforcedDiff,turnoverDiff,contestedDiff,contestedTotal,contestedRate,
-          poDiff,overallDiff,ourPOTotal,ourPORate,theirPOTotal,theirWinRate,
-          shotsUs,shotsThem,scoresUs,scoresThem,convUs,convThem,freeDiff};
+  return {ourPOTotal,ourPORate,theirPOTotal,theirWinRate,
+          shotsUs,shotsThem,scoresUs,scoresThem,convUs,convThem};
 }
 
-// Returns kpi-box class based on sign of v (null/0 = white/zero)
-function diffClass(v){
-  if(v===null||v===0)return 'kpi-zero';
-  return v>0?'kpi-pos':'kpi-neg';
-}
-// Threshold-based % class: green > threshold, red < threshold, white == threshold
 function pctClass(v,threshold){
   if(v===null||v===threshold)return 'kpi-zero';
   return v>threshold?'kpi-pos':'kpi-neg';
 }
-function fmtDiff(v){return v===null?'—':(v>0?`+${v}`:`${v}`);}
-function fmtPct(v) {return v===null?'—':`${v}%`;}
+function fmtPct(v){return v===null?'—':`${v}%`;}
 function fmtWL(w,l){return `${w}W · ${l}L`;}
 
+// Set class and value on a .kpi-stat-box
+function setStatBox(id, val, sub, isWinPct){
+  const box = document.getElementById(id);
+  const valEl = document.getElementById(id.replace('-box','-val'));
+  const subEl = document.getElementById(id.replace('-box','-sub'));
+  // Determine state class
+  let cls = 's-zero';
+  if(isWinPct){
+    if(val!==null){ cls = val>50?'s-pos':val<50?'s-neg':'s-zero'; }
+  } else {
+    if(val!==null&&val!==0){ cls = val>0?'s-pos':'s-neg'; }
+  }
+  box.className='kpi-stat-box '+cls;
+  if(isWinPct){
+    valEl.textContent = val===null?'—':`${val}%`;
+  } else {
+    valEl.textContent = val===null?'—':(val>0?`+${val}`:`${val}`);
+  }
+  if(subEl) subEl.textContent = sub||'';
+}
+
 function renderKpiTab(){
-  const r=kpiCounts(kpiQ);
-  const d=kpiDerive(r);
+  const r  = kpiCounts(kpiQ);
+  const cb = kpiContested(kpiQ);
+  const d  = kpiDerive(r);
 
-  // Row 1 — Possession Differential
-  const row1=document.getElementById('kpi-row1');
-  const hlEl=document.getElementById('kpi-overall-diff');
-  const sub =document.getElementById('kpi-poss-subtitle');
-  const ov=d.overallDiff;
-  row1.className=(ov>0?'pos':ov<0?'neg':'');
-  hlEl.className='kpi-headline '+(ov>0?'pos':ov<0?'neg':'zero');
-  hlEl.textContent=ov>0?`+${ov}`:`${ov}`;
-  sub.textContent=ov>0?'Winning the possession battle':ov<0?'Losing the possession battle':'Level';
+  // ── Contested Ball ──
+  setStatBox('cb-winpct-box', cb.winPct, fmtWL(cb.wins,cb.losses), true);
+  setStatBox('cb-def-box', cb.zW.Defensive-cb.zL.Defensive, fmtWL(cb.zW.Defensive,cb.zL.Defensive), false);
+  setStatBox('cb-mid-box', cb.zW.Middle-cb.zL.Middle,       fmtWL(cb.zW.Middle,cb.zL.Middle),       false);
+  setStatBox('cb-att-box', cb.zW.Attacking-cb.zL.Attacking, fmtWL(cb.zW.Attacking,cb.zL.Attacking), false);
 
-  const setBadge=(id,val)=>{
-    const el=document.getElementById(id);
-    el.className='kpi-badge '+(val>0?'pos':val<0?'neg':'');
-    document.getElementById(id+'-val').textContent=val>0?`+${val}`:`${val}`;
-  };
-  setBadge('badge-forced',  d.forcedDiff);
-  setBadge('badge-unforced',d.unforcedDiff);
-  setBadge('badge-cont',    d.contestedDiff);
-  setBadge('badge-po',      d.poDiff);
+  // ── Turnovers ──
+  document.getElementById('to-forced-val').textContent   = r.forcedUs;
+  document.getElementById('to-unforced-val').textContent = r.unforcedLoss;
 
-  // Row 2 — Contested Ball
-  const bcd=document.getElementById('box-cont-diff');
-  bcd.className='kpi-box '+diffClass(d.contestedDiff);
-  document.getElementById('box-cont-diff-val').textContent=fmtDiff(d.contestedDiff);
-  document.getElementById('box-cont-diff-sub').textContent=fmtWL(r.contestedWin,r.contestedLoss);
-
-  const bcr=document.getElementById('box-cont-rate');
-  bcr.className='kpi-box '+diffClass(d.contestedRate!==null?d.contestedRate-50:null);
-  document.getElementById('box-cont-rate-val').textContent=fmtPct(d.contestedRate);
-  document.getElementById('box-cont-rate-sub').textContent=`${d.contestedTotal} contests`;
-
-  // Row 2 — Puck Out Picture
+  // ── Puck Out Picture ──
   const bop=document.getElementById('box-our-po');
   bop.className='kpi-box '+pctClass(d.ourPORate,70);
   document.getElementById('box-our-po-val').textContent=fmtPct(d.ourPORate);
@@ -1112,7 +1136,7 @@ function renderKpiTab(){
   document.getElementById('box-their-po-val').textContent=fmtPct(d.theirWinRate);
   document.getElementById('box-their-po-sub').textContent=fmtWL(r.theirPOWin,r.theirPOLoss);
 
-  // Row 3 — Score Summary
+  // ── Score Summary ──
   const gaaFmt=(g,p)=>`${g}-${p.toString().padStart(2,'0')}`;
   document.getElementById('box-score-us-gaa').textContent  =gaaFmt(r.goalUs,r.shotPlayScoreUs+r.shotFreeScoreUs);
   document.getElementById('box-score-them-gaa').textContent=gaaFmt(r.goalThem,r.shotPlayScoreThem+r.shotFreeScoreThem);
@@ -1123,7 +1147,7 @@ function renderKpiTab(){
   document.getElementById('box-score-them-play').textContent=`Play: ${playThem}`;
   document.getElementById('box-score-them-free').textContent=`Free: ${r.shotFreeScoreThem}p`;
 
-  // Row 3 — Shooting
+  // ── Shooting ──
   document.getElementById('shoot-us-play').textContent  =`Play: ${r.shotPlayScoreUs}✓ / ${r.shotPlayMissUs}✗`;
   document.getElementById('shoot-us-free').textContent  =`Free: ${r.shotFreeScoreUs}✓ / ${r.shotFreeMissUs}✗`;
   document.getElementById('shoot-us-total').textContent =`${d.shotsUs} shots`;
@@ -1135,12 +1159,6 @@ function renderKpiTab(){
   document.getElementById('shoot-them-total').textContent =`${d.shotsThem} shots`;
   document.getElementById('shoot-them-conv').textContent  =fmtPct(d.convThem);
   document.getElementById('box-shoot-them').className     ='kpi-box kpi-zero';
-
-  // Row 4 — Frees
-  const bfd=document.getElementById('box-free-diff');
-  bfd.className='kpi-box '+diffClass(d.freeDiff);
-  document.getElementById('box-free-diff-val').textContent=fmtDiff(d.freeDiff);
-  document.getElementById('box-frees-won-txt').textContent=`Us ${r.freeWonUs} — ${r.freeWonThem} Them`;
 
   // Keep quarter selector in sync
   document.querySelectorAll('.kqi-qbtn').forEach(b=>b.classList.toggle('active',b.dataset.q===kpiQ));
