@@ -215,7 +215,7 @@
   #modal-tabs { display:flex; gap:6px; flex-shrink:0; }
   .modal-tab { flex:1; padding:9px 4px; background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); color:var(--text-dim); font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:center; cursor:pointer; transition:all 0.2s; }
   .modal-tab.active { background:var(--accent); border-color:var(--accent); color:#000; }
-  .tab-content { display:none; }
+  .tab-content { display:none; overflow:hidden; }
   .tab-content.active { display:block; }
   #raw-table { width:100%; border-collapse:collapse; font-size:14px; }
   #raw-table th { background:var(--surface2); color:var(--text-dim); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:10px 6px; text-align:center; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:2; }
@@ -555,27 +555,50 @@
         </div>
       </div>
 
-      <!-- Row 3 — Shooting (unchanged) -->
-      <div class="kpi-card kpi-card-full">
-        <div class="kpi-card-title">Shooting</div>
-        <div class="kpi-2box">
-          <div class="kpi-box neutral" id="box-shoot-us">
-            <div class="kpi-box-label">Us</div>
-            <div class="kpi-shoot-row" id="shoot-us-play"></div>
-            <div class="kpi-shoot-row" id="shoot-us-free"></div>
-            <div class="kpi-shoot-divider"></div>
-            <div class="kpi-box-sub" id="shoot-us-total"></div>
-            <div class="kpi-box-val kpi-conv" id="shoot-us-conv">—</div>
-          </div>
-          <div class="kpi-box neutral" id="box-shoot-them">
-            <div class="kpi-box-label">Them</div>
-            <div class="kpi-shoot-row" id="shoot-them-play"></div>
-            <div class="kpi-shoot-row" id="shoot-them-free"></div>
-            <div class="kpi-shoot-divider"></div>
-            <div class="kpi-box-sub" id="shoot-them-total"></div>
-            <div class="kpi-box-val kpi-conv" id="shoot-them-conv">—</div>
+      <!-- Row 3 — Shooting + Score per Qtr + Run thru 65 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:7px">
+
+        <div class="kpi-card">
+          <div class="kpi-card-title">Shooting Us</div>
+          <div class="kpi-shoot-row" id="shoot-us-play"></div>
+          <div class="kpi-shoot-row" id="shoot-us-free"></div>
+          <div class="kpi-shoot-divider"></div>
+          <div class="kpi-box-sub" id="shoot-us-total"></div>
+          <div class="kpi-box-val kpi-conv" id="shoot-us-conv">—</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card-title">Shooting Them</div>
+          <div class="kpi-shoot-row" id="shoot-them-play"></div>
+          <div class="kpi-shoot-row" id="shoot-them-free"></div>
+          <div class="kpi-shoot-divider"></div>
+          <div class="kpi-box-sub" id="shoot-them-total"></div>
+          <div class="kpi-box-val kpi-conv" id="shoot-them-conv">—</div>
+        </div>
+
+        <div class="kpi-card" style="display:flex;flex-direction:column">
+          <div class="kpi-card-title" id="score-qtr-us-lbl">Score (Us)</div>
+          <div id="score-qtr-us" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;border:1.5px solid rgba(107,122,153,0.2);background:rgba(107,122,153,0.08);padding:8px 4px;margin-top:2px">
+            <div class="kpi-stat-box-val" id="score-qtr-us-val" style="font-size:52px;color:var(--text-dim)">0</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:3px" id="score-qtr-us-target"></div>
           </div>
         </div>
+
+        <div class="kpi-card" style="display:flex;flex-direction:column">
+          <div class="kpi-card-title" id="score-qtr-them-lbl">Score (Them)</div>
+          <div id="score-qtr-them" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;border:1.5px solid rgba(107,122,153,0.2);background:rgba(107,122,153,0.08);padding:8px 4px;margin-top:2px">
+            <div class="kpi-stat-box-val" id="score-qtr-them-val" style="font-size:52px;color:var(--text-dim)">0</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:3px" id="score-qtr-them-target"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card" style="display:flex;flex-direction:column">
+          <div class="kpi-card-title">Run Thru 65</div>
+          <div style="flex:1;display:flex;align-items:center;justify-content:center">
+            <div class="kpi-stat-box-val" id="run-thru-65-val" style="font-size:56px;color:var(--amber)">0</div>
+          </div>
+        </div>
+
       </div>
 
     </div><!-- end tab-kpi -->
@@ -1160,6 +1183,46 @@ function renderKpiTab(){
   document.getElementById('shoot-them-total').textContent =`${d.shotsThem} shots`;
   document.getElementById('shoot-them-conv').textContent  =fmtPct(d.convThem);
   document.getElementById('box-shoot-them').className     ='kpi-box kpi-zero';
+
+  // ── Score per quarter ──
+  const isTotal = kpiQ === 'total';
+  const qs2 = isTotal ? [1,2,3,4] : [parseInt(kpiQ)];
+  const qLabel = isTotal ? 'Match' : `Q${kpiQ}`;
+  const usThreshold   = isTotal ? null : 5;
+  const themThreshold = isTotal ? null : 4;
+
+  const scoreUsQtr = (() => {
+    const g = eventLog.filter(e => e.kpi==='Goal – Us'   && qs2.includes(e.quarter)).length;
+    const p = eventLog.filter(e => (e.kpi==='Point – Play (Us)'||e.kpi==='Point – Free (Us)') && qs2.includes(e.quarter)).length;
+    return g*3+p;
+  })();
+  const scoreThemQtr = (() => {
+    const g = eventLog.filter(e => e.kpi==='Goal – Them'  && qs2.includes(e.quarter)).length;
+    const p = eventLog.filter(e => (e.kpi==='Point – Play (Them)'||e.kpi==='Point – Free (Them)') && qs2.includes(e.quarter)).length;
+    return g*3+p;
+  })();
+  const runThru65Qtr = eventLog.filter(e => e.kpi==='Run thru 65' && qs2.includes(e.quarter)).length;
+
+  const usColor   = isTotal ? 'var(--text-dim)' : scoreUsQtr   >= 5 ? 'var(--green)' : 'var(--red)';
+  const themColor = isTotal ? 'var(--text-dim)' : scoreThemQtr <= 4 ? 'var(--green)' : 'var(--red)';
+  const usBg      = isTotal ? 'rgba(107,122,153,0.08)' : scoreUsQtr   >= 5 ? 'rgba(0,230,118,0.08)' : 'rgba(255,61,90,0.08)';
+  const themBg    = isTotal ? 'rgba(107,122,153,0.08)' : scoreThemQtr <= 4 ? 'rgba(0,230,118,0.08)' : 'rgba(255,61,90,0.08)';
+  const usBorder  = isTotal ? 'rgba(107,122,153,0.2)'  : scoreUsQtr   >= 5 ? 'rgba(0,230,118,0.25)' : 'rgba(255,61,90,0.25)';
+  const themBorder= isTotal ? 'rgba(107,122,153,0.2)'  : scoreThemQtr <= 4 ? 'rgba(0,230,118,0.25)' : 'rgba(255,61,90,0.25)';
+
+  const scoreUsBox   = document.getElementById('score-qtr-us');
+  const scoreThemBox = document.getElementById('score-qtr-them');
+  scoreUsBox.style.background   = usBg;   scoreUsBox.style.borderColor   = usBorder;
+  scoreThemBox.style.background = themBg; scoreThemBox.style.borderColor = themBorder;
+  document.getElementById('score-qtr-us-val').style.color   = usColor;
+  document.getElementById('score-qtr-them-val').style.color = themColor;
+  document.getElementById('score-qtr-us-val').textContent   = scoreUsQtr;
+  document.getElementById('score-qtr-them-val').textContent = scoreThemQtr;
+  document.getElementById('score-qtr-us-lbl').textContent   = `Score ${qLabel} (Us)`;
+  document.getElementById('score-qtr-them-lbl').textContent = `Score ${qLabel} (Them)`;
+  document.getElementById('score-qtr-us-target').textContent   = isTotal ? '' : 'target ≥5';
+  document.getElementById('score-qtr-them-target').textContent = isTotal ? '' : 'target ≤4';
+  document.getElementById('run-thru-65-val').textContent = runThru65Qtr;
 
   // Keep quarter selector in sync
   document.querySelectorAll('.kqi-qbtn').forEach(b=>b.classList.toggle('active',b.dataset.q===kpiQ));
