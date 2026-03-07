@@ -432,6 +432,7 @@
     <div id="modal-tabs">
       <div class="modal-tab active" data-tab="kpi" onclick="switchTab('kpi')">📈 KPIs</div>
       <div class="modal-tab"        data-tab="raw" onclick="switchTab('raw')">📋 Raw Counts</div>
+      <div class="modal-tab"        data-tab="ht"  onclick="switchTab('ht')">🏁 Half Time</div>
     </div>
 
     <div class="tab-content active" id="tab-kpi">
@@ -573,6 +574,22 @@
       <table id="raw-table">
         <thead><tr><th>Event</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Total</th></tr></thead>
         <tbody id="raw-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- HALF TIME TAB -->
+    <div class="tab-content" id="tab-ht">
+      <table id="ht-table" style="width:100%;border-collapse:collapse;font-size:13px;margin-top:4px">
+        <thead>
+          <tr>
+            <th style="background:var(--surface2);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 6px;text-align:left;border-bottom:1px solid var(--border)">KPI</th>
+            <th style="background:var(--surface2);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 6px;text-align:center;border-bottom:1px solid var(--border)">Target</th>
+            <th style="background:var(--surface2);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 6px;text-align:center;border-bottom:1px solid var(--border)">Q1</th>
+            <th style="background:var(--surface2);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 6px;text-align:center;border-bottom:1px solid var(--border)">Q2</th>
+            <th style="background:var(--surface2);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 6px;text-align:center;border-bottom:1px solid var(--border)">Total</th>
+          </tr>
+        </thead>
+        <tbody id="ht-tbody"></tbody>
       </table>
     </div>
 
@@ -964,6 +981,7 @@ function switchTab(tab){
   document.querySelectorAll('.modal-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.toggle('active',t.id===`tab-${tab}`));
   if(tab==='kpi')renderKpiTab();
+  if(tab==='ht')renderHalfTimeTab();
 }
 
 function kpiCounts(q){
@@ -1121,6 +1139,86 @@ function renderKpiTab(){
   document.getElementById('run-thru-65-val').textContent=runThru65Qtr;
 
   document.querySelectorAll('.kqi-qbtn').forEach(b=>b.classList.toggle('active',b.dataset.q===kpiQ));
+}
+
+function renderHalfTimeTab(){
+  const tbody=document.getElementById('ht-tbody');
+  tbody.innerHTML='';
+
+  // Reuse existing calculation functions for Q1, Q2, and Q1+Q2 total
+  const r1=kpiCounts('1'), r2=kpiCounts('2');
+  const cb1=kpiContested('1'), cb2=kpiContested('2');
+  const d1=kpiDerive(r1), d2=kpiDerive(r2);
+
+  // Total (Q1+Q2) using existing functions
+  const rT=kpiCounts('total'); // we'll filter below to first half only
+  // Re-derive first-half totals manually to avoid relying on kpiCounts('total') which includes all quarters
+  const rFH={
+    shotPlayScoreUs:   r1.shotPlayScoreUs  +r2.shotPlayScoreUs,
+    shotPlayMissUs:    r1.shotPlayMissUs   +r2.shotPlayMissUs,
+    shotFreeScoreUs:   r1.shotFreeScoreUs  +r2.shotFreeScoreUs,
+    shotFreeMissUs:    r1.shotFreeMissUs   +r2.shotFreeMissUs,
+    goalUs:            r1.goalUs           +r2.goalUs,
+    shotPlayScoreThem: r1.shotPlayScoreThem+r2.shotPlayScoreThem,
+    shotPlayMissThem:  r1.shotPlayMissThem +r2.shotPlayMissThem,
+    shotFreeScoreThem: r1.shotFreeScoreThem+r2.shotFreeScoreThem,
+    shotFreeMissThem:  r1.shotFreeMissThem +r2.shotFreeMissThem,
+    goalThem:          r1.goalThem         +r2.goalThem,
+    ourPOWin:          r1.ourPOWin         +r2.ourPOWin,
+    ourPOLoss:         r1.ourPOLoss        +r2.ourPOLoss,
+    theirPOWin:        r1.theirPOWin       +r2.theirPOWin,
+    theirPOLoss:       r1.theirPOLoss      +r2.theirPOLoss,
+    forcedUs:          r1.forcedUs         +r2.forcedUs,
+    unforcedLoss:      r1.unforcedLoss     +r2.unforcedLoss,
+  };
+  const dFH=kpiDerive(rFH);
+  const cbFH={
+    wins:   cb1.wins  +cb2.wins,
+    losses: cb1.losses+cb2.losses,
+  };
+  cbFH.total  =cbFH.wins+cbFH.losses;
+  cbFH.winPct =cbFH.total===0?null:Math.round((cbFH.wins/cbFH.total)*100);
+
+  // Score counts (each goal or point = 1 scoring action)
+  const scUs1  =r1.goalUs +r1.shotPlayScoreUs +r1.shotFreeScoreUs;
+  const scUs2  =r2.goalUs +r2.shotPlayScoreUs +r2.shotFreeScoreUs;
+  const scUsFH =scUs1+scUs2;
+  const scTh1  =r1.goalThem+r1.shotPlayScoreThem+r1.shotFreeScoreThem;
+  const scTh2  =r2.goalThem+r2.shotPlayScoreThem+r2.shotFreeScoreThem;
+  const scThFH =scTh1+scTh2;
+
+  // Shots Us
+  const shUs1 =r1.shotPlayScoreUs+r1.shotPlayMissUs+r1.shotFreeScoreUs+r1.shotFreeMissUs+r1.goalUs;
+  const shUs2 =r2.shotPlayScoreUs+r2.shotPlayMissUs+r2.shotFreeScoreUs+r2.shotFreeMissUs+r2.goalUs;
+  const shUsFH=shUs1+shUs2;
+
+  // Helper to format percentage
+  const fp=v=>v===null?'—':`${v}%`;
+
+  // Row definition: [label, q1val, q2val, totalval, target, higherIsBetter]
+  // higherIsBetter: true=green when meeting target, false=green when under target, null=no colour
+  const rows=[
+    ['Scores (Us)',            scUs1,          scUs2,          scUsFH,          '≥5/qtr',  true ],
+    ['Scores (Them)',          scTh1,          scTh2,          scThFH,          '≤4/qtr',  false],
+    ['Shots (Us)',             shUs1,          shUs2,          shUsFH,          '≥8/half',  null ],
+    ['Shooting Acc % (Us)',    fp(d1.convUs),  fp(d2.convUs),  fp(dFH.convUs),  '≥70%',    true ],
+    ['Forced T/O (Us)',        r1.forcedUs,    r2.forcedUs,    rFH.forcedUs,    '',        null ],
+    ['Our PO Win %',           fp(d1.ourPORate),fp(d2.ourPORate),fp(dFH.ourPORate),'≥70%',true ],
+    ['Their PO We Win %',      fp(d1.theirWinRate),fp(d2.theirWinRate),fp(dFH.theirWinRate),'≥50%',true],
+    ['Contested Ball %',       cb1.winPct===null?'—':`${cb1.winPct}%`, cb2.winPct===null?'—':`${cb2.winPct}%`, cbFH.winPct===null?'—':`${cbFH.winPct}%`,'≥50%',true],
+    ['Run Thru 65',            eventLog.filter(e=>e.kpi==='Run thru 65'&&e.quarter===1).length, eventLog.filter(e=>e.kpi==='Run thru 65'&&e.quarter===2).length, eventLog.filter(e=>e.kpi==='Run thru 65'&&[1,2].includes(e.quarter)).length, '', null],
+  ];
+
+  rows.forEach(([label,q1,q2,tot,target])=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="padding:10px 6px;border-bottom:1px solid rgba(30,45,69,0.5);color:var(--text-dim);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px">${label}</td>
+      <td style="padding:10px 6px;border-bottom:1px solid rgba(30,45,69,0.5);text-align:center;font-size:11px;font-weight:700;color:var(--text-dim)">${target}</td>
+      <td style="padding:10px 6px;border-bottom:1px solid rgba(30,45,69,0.5);text-align:center;font-weight:600;color:var(--text)">${q1}</td>
+      <td style="padding:10px 6px;border-bottom:1px solid rgba(30,45,69,0.5);text-align:center;font-weight:600;color:var(--text)">${q2}</td>
+      <td style="padding:10px 6px;border-bottom:1px solid rgba(30,45,69,0.5);text-align:center;font-weight:900;color:var(--accent);font-size:15px">${tot}</td>`;
+    tbody.appendChild(tr);
+  });
 }
 
 function showDisplay(){
