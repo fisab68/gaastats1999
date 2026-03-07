@@ -1,6 +1,6 @@
 // GAA Stats PWA — Service Worker v12
 // Bump CACHE_NAME any time you update the app to force clients to reload
-const CACHE_NAME = 'gaa-stats-v18';
+const CACHE_NAME = 'gaa-stats-v19';
 
 const PRECACHE = [
   './index.html'
